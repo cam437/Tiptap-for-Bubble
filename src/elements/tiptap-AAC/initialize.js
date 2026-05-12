@@ -95,7 +95,7 @@ try {
 		}
 
         p.is-editor-empty:first-child::before {
-            color: ${properties.placeholder_color || "#adb5bd"};
+            color: ${properties.placeholder_color || "#a1a1aa"};
             content: attr(data-placeholder);
             float: left;
             height: 0;
@@ -167,7 +167,7 @@ try {
         }
 
         [data-type="details"] {
-            border: 1px solid #e2e8f0;
+            border: 1px solid #3F3F46;
             border-radius: 4px;
             padding: 0.5rem;
             margin: 0.5rem 0;
@@ -271,9 +271,9 @@ try {
 
         .tiptap-drag-handle {
           align-items: center;
-          background: white;
+          background: #1b1b20;
           border-radius: .25rem;
-          border: 1px solid rgba(0, 0, 0, 0.1);
+          border: 1px solid #3F3F46;
           cursor: grab;
           display: flex;
           height: 1.5rem;
@@ -287,7 +287,7 @@ try {
     }
 
     .ProseMirror .selection {
-        background: #accef7;
+        background: rgba(255, 57, 134, 0.28);
         ${properties.ext_selection_css || ""}
     }
 
@@ -301,8 +301,8 @@ try {
     }
 
     .flourish-comment {
-        background-color: rgba(255, 45, 123, 0.12);
-        border-bottom: 2px solid #FF2D7B;
+        background-color: rgba(255, 57, 134, 0.12);
+        border-bottom: 2px solid #FF3986;
         border-radius: 2px;
         padding: 1px 2px;
         margin: 0 -2px;
@@ -311,18 +311,18 @@ try {
     }
 
     .flourish-comment:hover {
-        background-color: rgba(255, 45, 123, 0.22);
-        box-shadow: 0 0 0 1px rgba(255, 45, 123, 0.4);
+        background-color: rgba(255, 57, 134, 0.22);
+        box-shadow: 0 0 0 1px rgba(255, 57, 134, 0.4);
     }
 
     .flourish-comment.flourish-comment-active {
-        background-color: rgba(255, 45, 123, 0.28);
-        box-shadow: 0 0 0 1px #FF2D7B;
+        background-color: rgba(255, 57, 134, 0.28);
+        box-shadow: 0 0 0 1px #FF3986;
     }
 
     .suggestions {
-        border: 1px solid #ccc;
-        background-color: white;
+        border: 1px solid #3F3F46;
+        background-color: #1b1b20;
         padding: 5px;
         box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         border-radius: 4px;
@@ -338,7 +338,7 @@ try {
     }
 
     .suggestion-item:hover {
-	    background-color: #eee;
+	    background-color: #2a2a31;
     }
 
     .suggestion {
@@ -355,7 +355,7 @@ try {
     right: 0;
     top: 0;
     bottom: 0;
-    background: rgba(200, 200, 255, 0.4);
+    background: rgba(255, 57, 134, 0.28);
     pointer-events: none;
 }
 
@@ -365,7 +365,7 @@ try {
     top: 0;
     bottom: -2px;
     width: 4px;
-    background-color: #adf;
+    background-color: #FF3986;
     pointer-events: none;
 }
 
@@ -382,8 +382,8 @@ try {
     position: relative;
     margin-left: -1px;
     margin-right: -1px;
-    border-left: 1px solid #0D0D0D;
-    border-right: 1px solid #0D0D0D;
+    border-left: 1px solid #f4f4f5;
+    border-right: 1px solid #f4f4f5;
     word-break: normal;
     pointer-events: none;
 }
@@ -397,7 +397,7 @@ try {
     font-weight: 600;
     line-height: normal;
     user-select: none;
-    color: #0D0D0D;
+    color: #f4f4f5;
     padding: 0.1rem 0.3rem;
     border-radius: 3px 3px 3px 0;
     white-space: nowrap;
@@ -408,13 +408,13 @@ try {
     padding: 0.2rem;
     position: relative;
     border-radius: 0.5rem;
-    background: #FFF;
-    color: rgba(0, 0, 0, 0.8);
+    background: #1b1b20;
+    color: #f4f4f5;
     overflow: hidden;
     font-size: 0.9rem;
     box-shadow:
-    0 0 0 1px rgba(0, 0, 0, 0.05),
-    0px 10px 20px rgba(0, 0, 0, 0.1);
+    0 0 0 1px #3F3F46,
+    0px 10px 20px rgba(0, 0, 0, 0.3);
 
     .item {
         display: block;
@@ -427,7 +427,7 @@ try {
         padding: 0.2rem 0.4rem;
 
         &.is-selected {
-        	border-color: #000;
+        	border-color: #FF3986;
         }
     }
 }
