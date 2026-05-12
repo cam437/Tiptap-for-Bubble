@@ -35,10 +35,6 @@
         "AFu": {
             "caption": "file is uploaded",
             "name": "fileUploaded"
-        },
-        "AHA": {
-            "caption": "Comment clicked",
-            "name": "comment_clicked"
         }
     },
     "fields": {
@@ -999,8 +995,8 @@
         },
         "nodes": {
             "caption": "Extensions",
-            "default_val": "Heading, Bold, Code, Italic, Strike, Dropcursor, Gapcursor, History, Blockquote, BulletList, OrderedList, TaskList, CodeBlock, HorizontalRule, Youtube, Underline, Table, Image, Link, Placeholder, BubbleMenu, FloatingMenu, TextAlign, Highlight, Comment",
-            "doc": "Active extensions. If you remove an item, the editor will not allow or render that node type. Possible options: Heading, Bold, Code, Italic, Strike, Dropcursor, Gapcursor, History, Blockquote, BulletList, OrderedList, TaskList, CodeBlock, HorizontalRule, Youtube, Underline, Table, Image, Link, Placeholder, BubbleMenu, FloatingMenu, TextAlign, Highlight, Comment",
+            "default_val": "Heading, Bold, Code, Italic, Strike, Dropcursor, Gapcursor, History, Blockquote, BulletList, OrderedList, TaskList, CodeBlock, HorizontalRule, Youtube, Underline, Table, Image, Link, Placeholder, BubbleMenu, FloatingMenu, TextAlign, Highlight",
+            "doc": "Active extensions. If you remove an item, the editor will not allow or render that node type. Possible options: Heading, Bold, Code, Italic, Strike, Dropcursor, Gapcursor, History, Blockquote, BulletList, OrderedList, TaskList, CodeBlock, HorizontalRule, Youtube, Underline, Table, Image, Link, Placeholder, BubbleMenu, FloatingMenu, TextAlign, Highlight",
             "editor": "StaticText",
             "in_style": true,
             "long_text": true,
@@ -1401,15 +1397,6 @@
             },
             "is_list": true,
             "name": "fileUploadUrls",
-            "value": "text"
-        },
-        "AHB": {
-            "caption": "Active comment ID",
-            "doc": "The comment ID of the comment mark at the current cursor position. Published when a user clicks inside a commented region.",
-            "initialization_code": {
-                "fn": "function(properties, context) {}"
-            },
-            "name": "active_comment_id",
             "value": "text"
         }
     },

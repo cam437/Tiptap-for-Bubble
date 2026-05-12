@@ -95,14 +95,6 @@
     "AHI": {
       "name": "dist.js",
       "url": "//meta-q.cdn.bubble.io/f1773555659085x364144103293870600/dist.js"
-    },
-    "AHJ": {
-      "name": "dist-v01.js",
-      "url": "//meta-q.cdn.bubble.io/f1778579200879x826037241864949500/dist-v01.js"
-    },
-    "AHK": {
-      "name": "dist-v01.js",
-      "url": "//meta-q.cdn.bubble.io/f1778579210373x495937957023964350/dist-v01.js"
     }
   },
   "dependencies": {
@@ -111,7 +103,7 @@
     "use_jquery": true
   },
   "editor_counter": 333,
-  "human": "🤌 Rich text editor (Tiptap.dev)",
+  "human": "Tiptap.dev (Flourish)",
   "meta_data": {
     "categories": {
       "0": "blog",
@@ -125,7 +117,7 @@
     "image": "//s3.amazonaws.com/appforest_uf/f1671049405494x906508617350303200/tiptap%20logo%20400x400.jpg",
     "license": "private",
     "link": "https://forum.bubble.io/t/tiptap-rich-text-editor-with-html-output/238504",
-    "name": "🤌 Rich text editor (Tiptap.dev)",
+    "name": "Tiptap.dev (Flourish)",
     "plugin_instructions": "1. Place the element on the page\n2. Feed it some initial content (plain text or HTML)\n3. Save the HTML as output\n\nExtras:\n- build and wire your own menu\n- floating menu\n- bubble menu\n",
     "sa_node_version": 18
   },

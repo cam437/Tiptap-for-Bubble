@@ -657,7 +657,6 @@ function(instance, context) {
         const Youtube = window.tiptapYoutube;
 
         const Mention = window.tiptapMention;
-        const Comment = window.tiptapComment;
         
         instance.data.active_nodes = properties.nodes
             .split(",")
@@ -703,7 +702,6 @@ function(instance, context) {
         if (instance.data.active_nodes.includes("Link")) extensions.push(Link);
         if (instance.data.active_nodes.includes("Placeholder")) extensions.push(Placeholder);
         if (instance.data.active_nodes.includes("TextAlign")) extensions.push(TextAlign);
-        if (instance.data.active_nodes.includes("Comment")) extensions.push(Comment);
 
         return extensions;
     }

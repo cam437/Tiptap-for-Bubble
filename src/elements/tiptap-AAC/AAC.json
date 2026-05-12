@@ -64,6 +64,34 @@
       "caption": "Unset font size",
       "doc": "Removes the font size from the current selection, reverting to the default."
     },
+    "add_comment": {
+      "caption": "Add comment to selection",
+      "doc": "Wraps the current text selection with a comment mark. Requires a unique comment_id to identify the comment.",
+      "fields": {
+        "add_comment_id": {
+          "caption": "Comment ID",
+          "doc": "A unique identifier for the comment. This ID is used to link the highlighted text to your comment data.",
+          "editor": "DynamicValue",
+          "name": "comment_id",
+          "rank": 0,
+          "value": "text"
+        }
+      }
+    },
+    "remove_comment": {
+      "caption": "Remove comment",
+      "doc": "Removes a comment mark from the document by its comment ID. All text regions with the matching comment ID will be unmarked.",
+      "fields": {
+        "remove_comment_id": {
+          "caption": "Comment ID",
+          "doc": "The ID of the comment to remove.",
+          "editor": "DynamicValue",
+          "name": "comment_id",
+          "rank": 0,
+          "value": "text"
+        }
+      }
+    },
     "toggle_invisible_characters": {
       "caption": "Toggle Invisible Characters",
       "doc": "Toggles the visibility of invisible characters (paragraph marks, spaces, hard breaks)."
@@ -475,6 +503,10 @@
     "collab_synced": {
       "caption": "Collaboration synced",
       "name": "collab_synced"
+    },
+    "comment_clicked": {
+      "caption": "Comment clicked",
+      "name": "comment_clicked"
     }
   },
   "fields": {
@@ -995,6 +1027,21 @@
       "optional": true,
       "rank": 198,
       "value": "text"
+    },
+    "ext_comment_label": {
+      "caption": "----- Comment -----",
+      "editor": "Label",
+      "name": "ext_comment_label",
+      "rank": 199
+    },
+    "ext_comment": {
+      "caption": "Comment",
+      "default_val": false,
+      "doc": "Enable inline commenting. Highlighted text regions can be tagged with a comment ID and styled with a yellow highlight. Use the 'Add comment to selection' and 'Remove comment' actions to manage comments.",
+      "editor": "Checkbox",
+      "name": "ext_comment",
+      "rank": 200,
+      "value": "boolean"
     },
     "ext_bubblemenu_label": {
       "caption": "----- Bubble Menu -----",
@@ -2824,6 +2871,15 @@
       },
       "name": "strike",
       "value": "boolean"
+    },
+    "active_comment_id": {
+      "caption": "Active comment ID",
+      "doc": "The comment ID of the comment mark at the current cursor position. Published when a user clicks inside a commented region.",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "active_comment_id",
+      "value": "text"
     }
   },
   "support_autobinding": true

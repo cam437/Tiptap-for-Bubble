@@ -300,6 +300,12 @@ try {
         box-decoration-break: clone;
     }
 
+    .flourish-comment {
+        background-color: #FFF3B0;
+        border-bottom: 2px solid #FF2D7B;
+        cursor: pointer;
+    }
+
     .suggestions {
         border: 1px solid #ccc;
         background-color: white;
@@ -1342,6 +1348,7 @@ instance.data.setupEditor = function (properties, context) {
         details: properties.ext_details,
         invisiblecharacters: properties.ext_invisiblecharacters,
         draghandle: properties.ext_draghandle,
+        comment: properties.ext_comment,
     };
 
     // parse heading levels
@@ -1546,6 +1553,20 @@ instance.data.setupEditor = function (properties, context) {
         }
 
         extensions.push(DragHandle.configure(dragHandleConfig));
+    }
+    if (properties.ext_comment) {
+        const Comment = window.tiptapComment;
+        extensions.push(Comment.configure({
+            HTMLAttributes: {
+                class: "flourish-comment",
+            },
+            onCommentActivated: (commentId) => {
+                instance.publishState("active_comment_id", commentId);
+                if (commentId) {
+                    instance.triggerEvent("comment_clicked");
+                }
+            },
+        }));
     }
 
     // ── PreserveAttributes extension ─────────────────────────

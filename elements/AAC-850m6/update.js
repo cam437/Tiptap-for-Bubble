@@ -92,7 +92,6 @@ function(instance, properties, context) {
         const Youtube = window.tiptapYoutube;
 
         const Mention = window.tiptapMention;
-        const Comment = window.tiptapComment;
 
 
 
@@ -264,19 +263,6 @@ function(instance, properties, context) {
         }
         if (instance.data.active_nodes.includes("TextAlign")) {
             extensions.push(TextAlign.configure({ types: ["heading", "paragraph"] }));
-        }
-        if (instance.data.active_nodes.includes("Comment")) {
-            extensions.push(Comment.configure({
-                HTMLAttributes: {
-                    class: "flourish-comment",
-                },
-                onCommentActivated: (commentId) => {
-                    instance.publishState("active_comment_id", commentId);
-                    if (commentId) {
-                        instance.triggerEvent("comment_clicked");
-                    }
-                },
-            }));
         }
 
         const PreserveAttributes = Extension.create({
@@ -1150,12 +1136,6 @@ function(instance, properties, context) {
         border-radius: 0.4rem;
         padding: 0.1rem 0.3rem;
         box-decoration-break: clone;
-    }
-
-    .flourish-comment {
-        background-color: #FFF3B0;
-        border-bottom: 2px solid #FF2D7B;
-        cursor: pointer;
     }
 
     .suggestions {
