@@ -301,9 +301,23 @@ try {
     }
 
     .flourish-comment {
-        background-color: #FFF3B0;
+        background-color: rgba(255, 45, 123, 0.12);
         border-bottom: 2px solid #FF2D7B;
+        border-radius: 2px;
+        padding: 1px 2px;
+        margin: 0 -2px;
         cursor: pointer;
+        transition: background-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .flourish-comment:hover {
+        background-color: rgba(255, 45, 123, 0.22);
+        box-shadow: 0 0 0 1px rgba(255, 45, 123, 0.4);
+    }
+
+    .flourish-comment.flourish-comment-active {
+        background-color: rgba(255, 45, 123, 0.28);
+        box-shadow: 0 0 0 1px #FF2D7B;
     }
 
     .suggestions {
