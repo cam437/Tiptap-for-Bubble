@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@sereneinserenade/tiptap-comment-extension": "^0.2.0"
+    "@sereneinserenade/tiptap-comment-extension": "^0.2.0",
+    "@tiptap/core": "^3.23.1",
+    "@tiptap/pm": "^3.23.1"
   },
   "devDependencies": {
     "esbuild": "^0.28.0"

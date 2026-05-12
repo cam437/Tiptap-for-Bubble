@@ -95,6 +95,10 @@
     "AHI": {
       "name": "dist.js",
       "url": "//meta-q.cdn.bubble.io/f1773555659085x364144103293870600/dist.js"
+    },
+    "AHJ": {
+      "name": "dist-v02.js",
+      "url": "//meta-q.cdn.bubble.io/f1778581778690x440511712822872800/dist-v02.js"
     }
   },
   "dependencies": {
