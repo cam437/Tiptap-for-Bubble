@@ -1,0 +1,13 @@
+{
+  "name": "my-plugin-package",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+      "build": "esbuild index.js --bundle --minify --outfile=dist.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+
