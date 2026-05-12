@@ -4,10 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-      "build": "esbuild index.js --bundle --minify --outfile=dist.js"
+    "build": "esbuild index.js --bundle --minify --outfile=dist.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@sereneinserenade/tiptap-comment-extension": "^0.2.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.0"
+  }
 }
-
