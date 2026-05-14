@@ -2878,7 +2878,7 @@ instance.data.setupEditor = function (properties, context) {
 
     var d = document.createElement("div");
     d.id = "tiptapEditor-" + randomId;
-    d.style = "flex-grow: 1; display: flex;";
+    d.style = "flex-grow: 1; flex-shrink: 0; display: flex;";
     instance.data.tiptapEditorID = d.id;
     options.element = d;
 
@@ -2888,12 +2888,22 @@ instance.data.setupEditor = function (properties, context) {
     instance.data.toolbarButtonMap = buttonMap;
     if (!properties.toolbar_show) toolbar.style.display = "none";
     if (properties.toolbar_sticky) toolbar.classList.add("tiptap-toolbar-sticky");
-    instance.canvas.append(toolbar);
 
-    // Handle overflow for sticky positioning
-    if (properties.toolbar_sticky) {
-        instance.canvas.css("overflow", "visible");
+    // Negate canvas padding so toolbar spans edge-to-edge
+    const canvasEl = instance.canvas[0] || instance.canvas;
+    const cs = window.getComputedStyle(canvasEl);
+    const pTop = parseFloat(cs.paddingTop) || 0;
+    const pRight = parseFloat(cs.paddingRight) || 0;
+    const pBottom = parseFloat(cs.paddingBottom) || 0;
+    const pLeft = parseFloat(cs.paddingLeft) || 0;
+    if (pTop || pRight || pLeft) {
+        toolbar.style.margin = `-${pTop}px -${pRight}px 0 -${pLeft}px`;
+        toolbar.style.paddingLeft = `calc(8px + ${pLeft}px)`;
+        toolbar.style.paddingRight = `calc(8px + ${pRight}px)`;
+        toolbar.style.paddingTop = `calc(6px + ${pTop}px)`;
     }
+
+    instance.canvas.append(toolbar);
 
     // Append editor div after toolbar
     instance.canvas.append(d);

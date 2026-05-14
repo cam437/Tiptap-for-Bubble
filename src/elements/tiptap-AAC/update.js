@@ -168,7 +168,4 @@ instance.data.applyStylesheet(properties);
 if (instance.data.toolbarEl) {
     instance.data.toolbarEl.style.display = properties.toolbar_show ? "" : "none";
     instance.data.toolbarEl.classList.toggle("tiptap-toolbar-sticky", !!properties.toolbar_sticky);
-    if (properties.toolbar_sticky) {
-        instance.canvas.css("overflow", "visible");
-    }
 }
