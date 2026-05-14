@@ -147,10 +147,10 @@ if (
 }
 
 if (!!instance.data.editor_is_ready) {
-    if (!properties.bubble.fit_height()) {
-        instance.canvas.css({ overflow: "scroll" });
-    } else {
-        instance.canvas.css({ overflow: "auto" });
+    // Scroll lives on the editor div so the toolbar stays pinned at top
+    const editorDiv = document.getElementById(instance.data.tiptapEditorID);
+    if (editorDiv) {
+        editorDiv.style.overflowY = properties.bubble.fit_height() ? "auto" : "scroll";
     }
 }
 
@@ -167,5 +167,4 @@ instance.data.applyStylesheet(properties);
 // ── Toolbar property change handlers ──
 if (instance.data.toolbarEl) {
     instance.data.toolbarEl.style.display = properties.toolbar_show ? "" : "none";
-    instance.data.toolbarEl.classList.toggle("tiptap-toolbar-sticky", !!properties.toolbar_sticky);
 }

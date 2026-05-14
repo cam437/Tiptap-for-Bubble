@@ -1493,15 +1493,6 @@
       "rank": 216,
       "value": "boolean"
     },
-    "toolbar_sticky": {
-      "caption": "Sticky toolbar",
-      "default_val": false,
-      "doc": "When enabled, the toolbar sticks to the top of the element while scrolling long documents.",
-      "editor": "Checkbox",
-      "name": "toolbar_sticky",
-      "rank": 217,
-      "value": "boolean"
-    },
     "toolbar_adv": {
       "caption": "Toolbar CSS override",
       "doc": "Inject custom CSS to override toolbar styles. This is raw CSS injected into the stylesheet.",

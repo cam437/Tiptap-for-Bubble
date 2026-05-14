@@ -447,11 +447,6 @@ try {
     z-index: 5;
 }
 
-#tiptapToolbar-${instance.data.randomId}.tiptap-toolbar-sticky {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-}
 
 #tiptapToolbar-${instance.data.randomId} .tiptap-toolbar-group {
     display: flex;
@@ -2072,8 +2067,8 @@ instance.data.setupEditor = function (properties, context) {
     const randomId = (Math.random() + 1).toString(36).substring(3);
     instance.data.randomId = randomId;
 
-    // Canvas needs block flow (not flex row) so toolbar + editor stack vertically and scroll works
-    instance.canvas.css({ display: "block", overflow: "auto" });
+    // Flex column: toolbar at top (flex-shrink:0), editor fills remainder and scrolls
+    instance.canvas.css({ display: "flex", "flex-direction": "column", overflow: "hidden" });
 
     // pull libraries from window.tiptap
     const {
@@ -2878,6 +2873,7 @@ instance.data.setupEditor = function (properties, context) {
 
     var d = document.createElement("div");
     d.id = "tiptapEditor-" + randomId;
+    d.style = "flex: 1 1 0; overflow-y: auto; min-height: 0;";
     instance.data.tiptapEditorID = d.id;
     options.element = d;
 
@@ -2886,8 +2882,6 @@ instance.data.setupEditor = function (properties, context) {
     instance.data.toolbarEl = toolbar;
     instance.data.toolbarButtonMap = buttonMap;
     if (!properties.toolbar_show) toolbar.style.display = "none";
-    if (properties.toolbar_sticky) toolbar.classList.add("tiptap-toolbar-sticky");
-
     // Negate canvas padding so toolbar spans edge-to-edge
     const canvasEl = instance.canvas[0] || instance.canvas;
     const cs = window.getComputedStyle(canvasEl);
