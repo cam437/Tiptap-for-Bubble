@@ -511,6 +511,10 @@
     "toolbar_add_comment": {
       "caption": "Toolbar: Add comment",
       "name": "toolbar_add_comment"
+    },
+    "toolbar_remove_comment": {
+      "caption": "Toolbar: Remove comment",
+      "name": "toolbar_remove_comment"
     }
   },
   "fields": {

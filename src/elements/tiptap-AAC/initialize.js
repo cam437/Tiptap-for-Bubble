@@ -1651,10 +1651,12 @@ const TOOLBAR_BUTTONS = [
     // ── Comments ──
     { group: "comments", cmd: "addComment", ext: "comment", icon: SVG_COMMENT, tooltip: "Add comment",
       action: null, // handled specially — fires event
-      isActive: () => false },
+      isActive: () => false,
+      isEnabled: (ed) => { const { from, to } = ed.state.selection; return from !== to; } },
     { group: "comments", cmd: "removeComment", ext: "comment", icon: SVG_COMMENT_X, tooltip: "Remove comment",
-      action: (ed) => ed.chain().focus().unsetComment().run(),
-      isActive: () => false },
+      action: null, // handled specially — fires event
+      isActive: () => false,
+      isEnabled: (ed) => ed.isActive("comment") },
 
     // ── History ──
     { group: "history", cmd: "undo", ext: "history", icon: SVG_UNDO, tooltip: "Undo",
@@ -1984,6 +1986,8 @@ function buildToolbar(properties, ext, randomId, instanceRef) {
                     toggleDropdown(btn, btnDef, editor, instanceRef, toolbar);
                 } else if (btnDef.cmd === "addComment") {
                     instanceRef.triggerEvent("toolbar_add_comment");
+                } else if (btnDef.cmd === "removeComment") {
+                    instanceRef.triggerEvent("toolbar_remove_comment");
                 } else if (btnDef.action) {
                     btnDef.action(editor);
                 }
