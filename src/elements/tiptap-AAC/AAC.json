@@ -64,34 +64,6 @@
       "caption": "Unset font size",
       "doc": "Removes the font size from the current selection, reverting to the default."
     },
-    "add_comment": {
-      "caption": "Add comment to selection",
-      "doc": "Wraps the current text selection with a comment mark. Requires a unique comment_id to identify the comment.",
-      "fields": {
-        "add_comment_id": {
-          "caption": "Comment ID",
-          "doc": "A unique identifier for the comment. This ID is used to link the highlighted text to your comment data.",
-          "editor": "DynamicValue",
-          "name": "comment_id",
-          "rank": 0,
-          "value": "text"
-        }
-      }
-    },
-    "remove_comment": {
-      "caption": "Remove comment",
-      "doc": "Removes a comment mark from the document by its comment ID. All text regions with the matching comment ID will be unmarked.",
-      "fields": {
-        "remove_comment_id": {
-          "caption": "Comment ID",
-          "doc": "The ID of the comment to remove.",
-          "editor": "DynamicValue",
-          "name": "comment_id",
-          "rank": 0,
-          "value": "text"
-        }
-      }
-    },
     "toggle_invisible_characters": {
       "caption": "Toggle Invisible Characters",
       "doc": "Toggles the visibility of invisible characters (paragraph marks, spaces, hard breaks)."
@@ -152,6 +124,20 @@
     },
     "ADB": {
       "caption": "Underline"
+    },
+    "add_comment": {
+      "caption": "Add comment to selection",
+      "doc": "Wraps the current text selection with a comment mark. Requires a unique comment_id to identify the comment.",
+      "fields": {
+        "add_comment_id": {
+          "caption": "Comment ID",
+          "doc": "A unique identifier for the comment. This ID is used to link the highlighted text to your comment data.",
+          "editor": "DynamicValue",
+          "name": "comment_id",
+          "rank": 0,
+          "value": "text"
+        }
+      }
     },
     "AFU": {
       "caption": "Unset font family"
@@ -332,6 +318,20 @@
         }
       }
     },
+    "remove_comment": {
+      "caption": "Remove comment",
+      "doc": "Removes a comment mark from the document by its comment ID. All text regions with the matching comment ID will be unmarked.",
+      "fields": {
+        "remove_comment_id": {
+          "caption": "Comment ID",
+          "doc": "The ID of the comment to remove.",
+          "editor": "DynamicValue",
+          "name": "comment_id",
+          "rank": 0,
+          "value": "text"
+        }
+      }
+    },
     "AHc": {
       "caption": "Set font size",
       "fields": {
@@ -507,6 +507,10 @@
     "comment_clicked": {
       "caption": "Comment clicked",
       "name": "comment_clicked"
+    },
+    "toolbar_add_comment": {
+      "caption": "Toolbar: Add comment",
+      "name": "toolbar_add_comment"
     }
   },
   "fields": {
@@ -839,6 +843,15 @@
       "options": "deepest,shallowest,all",
       "rank": 160
     },
+    "ext_comment": {
+      "caption": "Comment",
+      "default_val": false,
+      "doc": "Enable inline commenting. Highlighted text regions can be tagged with a comment ID and styled with a yellow highlight. Use the 'Add comment to selection' and 'Remove comment' actions to manage comments.",
+      "editor": "Checkbox",
+      "name": "ext_comment",
+      "rank": 200,
+      "value": "boolean"
+    },
     "AED": {
       "caption": "user_name",
       "default_val": "John Doe",
@@ -846,7 +859,7 @@
       "editor": "DynamicValue",
       "name": "collab_user_name",
       "optional": true,
-      "rank": 209,
+      "rank": 211,
       "value": "text"
     },
     "ext_history": {
@@ -900,7 +913,7 @@
       "doc": "Enable real-time collaborative editing via a Y.js-based provider (Tiptap Cloud, Custom Hocuspocus, or Liveblocks). When collaboration is active, the shared Y.js document is the single source of truth. Note: auto-binding is automatically ignored while collaboration is active — the collaborative document takes priority to prevent conflicts.",
       "editor": "Checkbox",
       "name": "collab_active",
-      "rank": 202
+      "rank": 204
     },
     "link_target": {
       "caption": "Open link in",
@@ -944,8 +957,14 @@
       "long_text": false,
       "name": "collab_cursor_css",
       "optional": true,
-      "rank": 211,
+      "rank": 213,
       "value": "text"
+    },
+    "ext_comment_label": {
+      "caption": "----- Comment -----",
+      "editor": "Label",
+      "name": "ext_comment_label",
+      "rank": 199
     },
     "ext_link_label": {
       "caption": "----- Link -----",
@@ -957,7 +976,7 @@
       "caption": "𝗦𝘁𝗮𝘁𝘂𝘀 𝘃𝗮𝗹𝘂𝗲𝘀: disconnected → connecting → connected → synced",
       "editor": "Label",
       "name": "collab_status_docs",
-      "rank": 201
+      "rank": 203
     },
     "h6_color": {
       "caption": "H6 Color",
@@ -989,7 +1008,7 @@
       "caption": "𝗖𝗢𝗟𝗟𝗔𝗕𝗢𝗥𝗔𝗧𝗜𝗢𝗡",
       "editor": "Label",
       "name": "collab_info",
-      "rank": 199
+      "rank": 201
     },
     "ext_typography": {
       "caption": "Typography",
@@ -1027,21 +1046,6 @@
       "optional": true,
       "rank": 198,
       "value": "text"
-    },
-    "ext_comment_label": {
-      "caption": "----- Comment -----",
-      "editor": "Label",
-      "name": "ext_comment_label",
-      "rank": 199
-    },
-    "ext_comment": {
-      "caption": "Comment",
-      "default_val": false,
-      "doc": "Enable inline commenting. Highlighted text regions can be tagged with a comment ID and styled with a yellow highlight. Use the 'Add comment to selection' and 'Remove comment' actions to manage comments.",
-      "editor": "Checkbox",
-      "name": "ext_comment",
-      "rank": 200,
-      "value": "boolean"
     },
     "ext_bubblemenu_label": {
       "caption": "----- Bubble Menu -----",
@@ -1412,7 +1416,7 @@
       "doc": "Paste the collab URL here to enable collaborative editing. Leave empty to disable.",
       "editor": "StaticText",
       "name": "collab_url",
-      "rank": 205
+      "rank": 207
     },
     "AFP": {
       "caption": "Visited link CSS override",
@@ -1472,7 +1476,40 @@
       "doc": "When enabled, logs detailed information to the browser console. Useful for troubleshooting. Look for messages prefixed with [Tiptap].",
       "editor": "Checkbox",
       "name": "debug_mode",
-      "rank": 212
+      "rank": 214
+    },
+    "toolbar_section_label": {
+      "caption": "----- Toolbar -----",
+      "editor": "Label",
+      "name": "toolbar_section_label",
+      "rank": 215
+    },
+    "toolbar_show": {
+      "caption": "Show toolbar",
+      "default_val": true,
+      "doc": "Display the built-in formatting toolbar above the editor. When hidden, all keyboard shortcuts still work.",
+      "editor": "Checkbox",
+      "name": "toolbar_show",
+      "rank": 216,
+      "value": "boolean"
+    },
+    "toolbar_sticky": {
+      "caption": "Sticky toolbar",
+      "default_val": false,
+      "doc": "When enabled, the toolbar sticks to the top of the element while scrolling long documents.",
+      "editor": "Checkbox",
+      "name": "toolbar_sticky",
+      "rank": 217,
+      "value": "boolean"
+    },
+    "toolbar_adv": {
+      "caption": "Toolbar CSS override",
+      "doc": "Inject custom CSS to override toolbar styles. This is raw CSS injected into the stylesheet.",
+      "editor": "StaticText",
+      "long_text": true,
+      "name": "toolbar_adv",
+      "optional": true,
+      "rank": 218
     },
     "ext_bulletlist": {
       "caption": "Bullet List",
@@ -1499,7 +1536,7 @@
       "editor": "Color",
       "name": "collab_cursor_color",
       "optional": true,
-      "rank": 210,
+      "rank": 212,
       "value": "text"
     },
     "codeblock_tabSize": {
@@ -1727,7 +1764,7 @@
       "editor": "DynamicValue",
       "name": "collab_doc_id",
       "optional": true,
-      "rank": 203,
+      "rank": 205,
       "value": "text"
     },
     "ext_mention": {
@@ -1746,7 +1783,7 @@
       "editor": "StaticText",
       "name": "collab_app_id",
       "optional": true,
-      "rank": 206
+      "rank": 208
     },
     "ext_floatingmenu_label": {
       "caption": "----- Floating Menu -----",
@@ -1800,7 +1837,7 @@
       "caption": "to use the collaboration function you first need an account with one of the providers: 𝘁𝗶𝗽𝘁𝗮𝗽.𝗿𝗶𝗰𝗼.𝘄𝘁𝗳 (has free tier), 𝗰𝗼𝗹𝗹𝗮𝗯.𝘁𝗶𝗽𝘁𝗮𝗽.𝗱𝗲𝘃, or 𝗹𝗶𝘃𝗲𝗯𝗹𝗼𝗰𝗸𝘀.𝗶𝗼",
       "editor": "Label",
       "name": "collab_info_sub",
-      "rank": 200
+      "rank": 202
     },
     "ext_table": {
       "caption": "Table",
@@ -1994,7 +2031,7 @@
       "editor": "StaticText",
       "name": "liveblocksPublicApiKey",
       "optional": true,
-      "rank": 208
+      "rank": 210
     },
     "ext_section_label": {
       "caption": "𝗘𝗫𝗧𝗘𝗡𝗦𝗜𝗢𝗡𝗦",
@@ -2116,7 +2153,7 @@
       "editor": "DynamicValue",
       "name": "collab_jwt",
       "optional": true,
-      "rank": 207,
+      "rank": 209,
       "value": "text"
     },
     "ext_uniqueid_label": {
@@ -2218,7 +2255,7 @@
       "name": "collabProvider",
       "optional": true,
       "options": "tiptap,liveblocks,custom",
-      "rank": 204
+      "rank": 206
     },
     "highlight_multicolor": {
       "caption": "Multicolor",
@@ -2599,6 +2636,15 @@
       "name": "selected_text",
       "value": "text"
     },
+    "active_comment_id": {
+      "caption": "Active comment ID",
+      "doc": "The comment ID of the comment mark at the current cursor position. Published when a user clicks inside a commented region.",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "active_comment_id",
+      "value": "text"
+    },
     "ACM": {
       "caption": "Content (JSON)",
       "doc": "Content as a JSON",
@@ -2871,15 +2917,6 @@
       },
       "name": "strike",
       "value": "boolean"
-    },
-    "active_comment_id": {
-      "caption": "Active comment ID",
-      "doc": "The comment ID of the comment mark at the current cursor position. Published when a user clicks inside a commented region.",
-      "initialization_code": {
-        "fn": "function(properties, context) {}"
-      },
-      "name": "active_comment_id",
-      "value": "text"
     }
   },
   "support_autobinding": true

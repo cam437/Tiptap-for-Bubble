@@ -431,6 +431,256 @@ try {
         }
     }
 }
+
+/* ── Toolbar styles ─────────────────────────────────────── */
+
+#tiptapToolbar-${instance.data.randomId} {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 2px;
+    padding: 6px 8px;
+    background: #0D0A0F;
+    border-bottom: 1px solid #3F3F46;
+    flex-shrink: 0;
+    user-select: none;
+    z-index: 5;
+}
+
+#tiptapToolbar-${instance.data.randomId}.tiptap-toolbar-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-toolbar-divider {
+    width: 1px;
+    height: 20px;
+    background: #3F3F46;
+    margin: 0 4px;
+    flex-shrink: 0;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-toolbar-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #a1a1aa;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.12s, color 0.12s;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-toolbar-btn:hover {
+    background: rgba(255, 45, 123, 0.08);
+    color: #f4f4f5;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-toolbar-btn.is-active {
+    background: rgba(255, 45, 123, 0.18);
+    color: #FF2D7B;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-toolbar-btn.is-disabled {
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-toolbar-btn.is-dropdown-open {
+    background: rgba(255, 45, 123, 0.12);
+    color: #f4f4f5;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-heading-indicator {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    font-size: 8px;
+    font-weight: 700;
+    color: #a1a1aa;
+    line-height: 1;
+    pointer-events: none;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-toolbar-btn.is-active .tiptap-heading-indicator {
+    color: #FF2D7B;
+}
+
+/* ── Dropdown panels ── */
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-toolbar-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 4px;
+    background: #0D0A0F;
+    border: 1px solid #3F3F46;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    z-index: 100;
+    min-width: 160px;
+    padding: 6px;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-dropdown-list {
+    max-height: 240px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-dropdown-list-item {
+    display: block;
+    width: 100%;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 4px;
+    background: transparent;
+    color: #f4f4f5;
+    font-size: 13px;
+    text-align: left;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-dropdown-list-item:hover {
+    background: rgba(255, 45, 123, 0.08);
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-dropdown-list-item.is-active {
+    background: rgba(255, 45, 123, 0.18);
+    color: #FF2D7B;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-dropdown-row {
+    display: flex;
+    gap: 6px;
+    padding: 6px 0 0;
+    align-items: center;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-dropdown-input {
+    flex: 1;
+    padding: 5px 8px;
+    border: 1px solid #3F3F46;
+    border-radius: 4px;
+    background: #1a1520;
+    color: #f4f4f5;
+    font-size: 13px;
+    outline: none;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-dropdown-input:focus {
+    border-color: #FF2D7B;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-dropdown-btn {
+    padding: 5px 12px;
+    border: none;
+    border-radius: 4px;
+    background: #FF2D7B;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-dropdown-btn:hover {
+    background: #e0266d;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-dropdown-btn-secondary {
+    background: #3F3F46;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-dropdown-btn-secondary:hover {
+    background: #52525b;
+}
+
+/* ── Color picker ── */
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-color-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+    padding-bottom: 6px;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-color-swatch {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+    border: 1px solid #3F3F46;
+    cursor: pointer;
+    padding: 0;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-color-swatch:hover {
+    border-color: #f4f4f5;
+    transform: scale(1.15);
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-color-input {
+    width: 32px;
+    height: 28px;
+    padding: 0;
+    border: 1px solid #3F3F46;
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* ── Table grid selector ── */
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-grid-label {
+    text-align: center;
+    color: #a1a1aa;
+    font-size: 12px;
+    padding-bottom: 6px;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-table-grid {
+    display: grid;
+    gap: 3px;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-grid-cell {
+    width: 22px;
+    height: 22px;
+    border: 1px solid #3F3F46;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: background 0.1s, border-color 0.1s;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-grid-cell:hover,
+#tiptapToolbar-${instance.data.randomId} .tiptap-grid-cell.is-active {
+    background: rgba(255, 45, 123, 0.18);
+    border-color: #FF2D7B;
+}
+
+/* ── Heading dropdown ── */
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-heading-list .tiptap-dropdown-list-item {
+    font-weight: 400;
+}
+
+${properties.toolbar_adv || ""}
+
 `;
     };
 
@@ -581,6 +831,14 @@ try {
                 instance.data.debug("error destroying editor:", e);
             }
             instance.data.editor = null;
+        }
+
+        // Remove toolbar DOM so it gets rebuilt on re-setup
+        if (instance.data.toolbarEl) {
+            closeActiveDropdown(instance);
+            instance.data.toolbarEl.remove();
+            instance.data.toolbarEl = null;
+            instance.data.toolbarButtonMap = null;
         }
 
         // Remove the editor DOM element so setupEditor can recreate it
@@ -1238,6 +1496,562 @@ function getSelection(editor) {
 instance.data.getSelection = getSelection;
 
 // ─────────────────────────────────────────────────────────────
+// Toolbar — SVG icons, button definitions, build & dropdown system
+// ─────────────────────────────────────────────────────────────
+
+const SVG_BOLD = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8"/></svg>`;
+const SVG_ITALIC = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></svg>`;
+const SVG_UNDERLINE = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" x2="20" y1="20" y2="20"/></svg>`;
+const SVG_STRIKE = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4H9a3 3 0 0 0-2.83 4"/><path d="M14 12a4 4 0 0 1 0 8H6"/><line x1="4" x2="20" y1="12" y2="12"/></svg>`;
+const SVG_SUBSCRIPT = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 5 8 8"/><path d="m12 5-8 8"/><path d="M20 19h-4c0-1.5.44-2 1.5-2.5S20 15.33 20 14c0-.47-.17-.93-.48-1.29a2.11 2.11 0 0 0-2.62-.44c-.42.24-.74.62-.9 1.07"/></svg>`;
+const SVG_SUPERSCRIPT = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 19 8-8"/><path d="m12 19-8-8"/><path d="M20 12h-4c0-1.5.44-2 1.5-2.5S20 8.33 20 7c0-.47-.17-.93-.48-1.29a2.11 2.11 0 0 0-2.62-.44c-.42.24-.74.62-.9 1.07"/></svg>`;
+const SVG_PALETTE = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>`;
+const SVG_HIGHLIGHTER = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11-6 6v3h9l3-3"/><path d="m22 12-4.6 4.6a2 2 0 0 1-2.8 0l-5.2-5.2a2 2 0 0 1 0-2.8L14 4"/></svg>`;
+const SVG_TYPE = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 7 4 4 20 4 20 7"/><line x1="9" x2="15" y1="20" y2="20"/><line x1="12" x2="12" y1="4" y2="20"/></svg>`;
+const SVG_FONTSIZE = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7V4h16v3"/><path d="M9 20h6"/><path d="M12 4v16"/><path d="M18 14v-1h4v1"/><path d="M19 17h2"/><path d="M20 14v3"/></svg>`;
+const SVG_HEADING = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h12"/><path d="M6 20V4"/><path d="M18 20V4"/></svg>`;
+const SVG_LIST = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" x2="21" y1="6" y2="6"/><line x1="8" x2="21" y1="12" y2="12"/><line x1="8" x2="21" y1="18" y2="18"/><line x1="3" x2="3.01" y1="6" y2="6"/><line x1="3" x2="3.01" y1="12" y2="12"/><line x1="3" x2="3.01" y1="18" y2="18"/></svg>`;
+const SVG_LISTORDERED = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="10" x2="21" y1="6" y2="6"/><line x1="10" x2="21" y1="12" y2="12"/><line x1="10" x2="21" y1="18" y2="18"/><path d="M4 6h1v4"/><path d="M4 10h2"/><path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1"/></svg>`;
+const SVG_TASKLIST = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="6" height="6" rx="1"/><path d="m3 17 2 2 4-4"/><line x1="13" x2="21" y1="6" y2="6"/><line x1="13" x2="21" y1="12" y2="12"/><line x1="13" x2="21" y1="18" y2="18"/></svg>`;
+const SVG_INDENT = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 8 7 12 3 16"/><line x1="21" x2="11" y1="12" y2="12"/><line x1="21" x2="11" y1="6" y2="6"/><line x1="21" x2="11" y1="18" y2="18"/></svg>`;
+const SVG_OUTDENT = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 8 3 12 7 16"/><line x1="21" x2="11" y1="12" y2="12"/><line x1="21" x2="11" y1="6" y2="6"/><line x1="21" x2="11" y1="18" y2="18"/></svg>`;
+const SVG_QUOTE = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3z"/></svg>`;
+const SVG_CODE = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`;
+const SVG_MINUS = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>`;
+const SVG_DETAILS = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`;
+const SVG_IMAGE = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>`;
+const SVG_YOUTUBE = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>`;
+const SVG_TABLE = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg>`;
+const SVG_LINK = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`;
+const SVG_UNLINK = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18.84 12.25 1.72-1.71h-.02a5.004 5.004 0 0 0-.12-7.07 5.006 5.006 0 0 0-6.95 0l-1.72 1.71"/><path d="m5.17 11.75-1.71 1.71a5.004 5.004 0 0 0 .12 7.07 5.006 5.006 0 0 0 6.95 0l1.71-1.71"/><line x1="8" x2="8" y1="2" y2="5"/><line x1="2" x2="5" y1="8" y2="8"/><line x1="16" x2="16" y1="19" y2="22"/><line x1="19" x2="22" y1="16" y2="16"/></svg>`;
+const SVG_ALIGN_LEFT = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="3" y1="6" y2="6"/><line x1="15" x2="3" y1="12" y2="12"/><line x1="17" x2="3" y1="18" y2="18"/></svg>`;
+const SVG_ALIGN_CENTER = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="3" y1="6" y2="6"/><line x1="17" x2="7" y1="12" y2="12"/><line x1="19" x2="5" y1="18" y2="18"/></svg>`;
+const SVG_ALIGN_RIGHT = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="21" x2="3" y1="6" y2="6"/><line x1="21" x2="9" y1="12" y2="12"/><line x1="21" x2="7" y1="18" y2="18"/></svg>`;
+const SVG_ALIGN_JUSTIFY = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="21" y1="6" y2="6"/><line x1="3" x2="21" y1="12" y2="12"/><line x1="3" x2="21" y1="18" y2="18"/></svg>`;
+const SVG_COMMENT = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22z"/></svg>`;
+const SVG_COMMENT_X = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22z"/><path d="m14.5 9.5-5 5"/><path d="m9.5 9.5 5 5"/></svg>`;
+const SVG_UNDO = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>`;
+const SVG_REDO = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3L21 13"/></svg>`;
+const SVG_PILCROW = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4v16"/><path d="M17 4v16"/><path d="M19 4H9.5a4.5 4.5 0 0 0 0 9H13"/></svg>`;
+
+const TOOLBAR_GROUP_ORDER = ["text","color","font","headings","lists","blocks","insert","links","alignment","comments","history","other"];
+
+const TOOLBAR_BUTTONS = [
+    // ── Text formatting ──
+    { group: "text", cmd: "bold", ext: "bold", icon: SVG_BOLD, tooltip: "Bold",
+      action: (ed) => ed.chain().focus().toggleBold().run(),
+      isActive: (ed) => ed.isActive("bold") },
+    { group: "text", cmd: "italic", ext: "italic", icon: SVG_ITALIC, tooltip: "Italic",
+      action: (ed) => ed.chain().focus().toggleItalic().run(),
+      isActive: (ed) => ed.isActive("italic") },
+    { group: "text", cmd: "underline", ext: "underline", icon: SVG_UNDERLINE, tooltip: "Underline",
+      action: (ed) => ed.chain().focus().toggleUnderline().run(),
+      isActive: (ed) => ed.isActive("underline") },
+    { group: "text", cmd: "strike", ext: "strike", icon: SVG_STRIKE, tooltip: "Strikethrough",
+      action: (ed) => ed.chain().focus().toggleStrike().run(),
+      isActive: (ed) => ed.isActive("strike") },
+    { group: "text", cmd: "subscript", ext: "subscript", icon: SVG_SUBSCRIPT, tooltip: "Subscript",
+      action: (ed) => ed.chain().focus().toggleSubscript().run(),
+      isActive: (ed) => ed.isActive("subscript") },
+    { group: "text", cmd: "superscript", ext: "superscript", icon: SVG_SUPERSCRIPT, tooltip: "Superscript",
+      action: (ed) => ed.chain().focus().toggleSuperscript().run(),
+      isActive: (ed) => ed.isActive("superscript") },
+
+    // ── Color ──
+    { group: "color", cmd: "textColor", ext: "color", icon: SVG_PALETTE, tooltip: "Text color",
+      hasDropdown: "colorPicker",
+      action: (ed, val) => val ? ed.chain().focus().setColor(val).run() : ed.chain().focus().unsetColor().run(),
+      isActive: (ed) => !!ed.getAttributes("textStyle").color },
+    { group: "color", cmd: "highlight", ext: "highlight", icon: SVG_HIGHLIGHTER, tooltip: "Highlight",
+      hasDropdown: "colorPicker",
+      action: (ed, val) => val ? ed.chain().focus().toggleHighlight({ color: val }).run() : ed.chain().focus().unsetHighlight().run(),
+      isActive: (ed) => ed.isActive("highlight") },
+
+    // ── Font ──
+    { group: "font", cmd: "fontFamily", ext: "fontfamily", icon: SVG_TYPE, tooltip: "Font family",
+      hasDropdown: "fontFamily",
+      action: (ed, val) => val ? ed.chain().focus().setFontFamily(val).run() : ed.chain().focus().unsetFontFamily().run(),
+      isActive: () => false },
+    { group: "font", cmd: "fontSize", ext: "fontsize", icon: SVG_FONTSIZE, tooltip: "Font size",
+      hasDropdown: "fontSize",
+      action: (ed, val) => val ? ed.chain().focus().setFontSize(val).run() : ed.chain().focus().unsetFontSize().run(),
+      isActive: () => false },
+
+    // ── Headings ──
+    { group: "headings", cmd: "heading", ext: "heading", icon: SVG_HEADING, tooltip: "Heading",
+      hasDropdown: "headingLevel",
+      action: (ed, level) => level ? ed.chain().focus().toggleHeading({ level }).run() : ed.chain().focus().setParagraph().run(),
+      isActive: (ed) => ed.isActive("heading") },
+
+    // ── Lists ──
+    { group: "lists", cmd: "bulletList", ext: "bulletlist", icon: SVG_LIST, tooltip: "Bullet list",
+      action: (ed) => ed.chain().focus().toggleBulletList().run(),
+      isActive: (ed) => ed.isActive("bulletList") },
+    { group: "lists", cmd: "orderedList", ext: "orderedlist", icon: SVG_LISTORDERED, tooltip: "Ordered list",
+      action: (ed) => ed.chain().focus().toggleOrderedList().run(),
+      isActive: (ed) => ed.isActive("orderedList") },
+    { group: "lists", cmd: "taskList", ext: "tasklist", icon: SVG_TASKLIST, tooltip: "Task list",
+      action: (ed) => ed.chain().focus().toggleTaskList().run(),
+      isActive: (ed) => ed.isActive("taskList") },
+    { group: "lists", cmd: "indent", ext: ["bulletlist", "orderedlist", "tasklist"], icon: SVG_INDENT, tooltip: "Indent",
+      action: (ed) => ed.chain().focus().sinkListItem("listItem").run(),
+      isActive: () => false,
+      isEnabled: (ed) => ed.can().sinkListItem("listItem") },
+    { group: "lists", cmd: "outdent", ext: ["bulletlist", "orderedlist", "tasklist"], icon: SVG_OUTDENT, tooltip: "Outdent",
+      action: (ed) => ed.chain().focus().liftListItem("listItem").run(),
+      isActive: () => false,
+      isEnabled: (ed) => ed.can().liftListItem("listItem") },
+
+    // ── Blocks ──
+    { group: "blocks", cmd: "blockquote", ext: "blockquote", icon: SVG_QUOTE, tooltip: "Blockquote",
+      action: (ed) => ed.chain().focus().toggleBlockquote().run(),
+      isActive: (ed) => ed.isActive("blockquote") },
+    { group: "blocks", cmd: "codeBlock", ext: "codeblock", icon: SVG_CODE, tooltip: "Code block",
+      action: (ed) => ed.chain().focus().toggleCodeBlock().run(),
+      isActive: (ed) => ed.isActive("codeBlock") },
+    { group: "blocks", cmd: "horizontalRule", ext: "horizontalrule", icon: SVG_MINUS, tooltip: "Horizontal rule",
+      action: (ed) => ed.chain().focus().setHorizontalRule().run(),
+      isActive: () => false },
+    { group: "blocks", cmd: "details", ext: "details", icon: SVG_DETAILS, tooltip: "Details / Accordion",
+      action: (ed) => ed.chain().focus().setDetails().run(),
+      isActive: (ed) => ed.isActive("details") },
+
+    // ── Insert ──
+    { group: "insert", cmd: "image", ext: "image", icon: SVG_IMAGE, tooltip: "Insert image",
+      hasDropdown: "imageUrl",
+      action: (ed, url) => { if (url) ed.chain().focus().setImage({ src: url }).run(); },
+      isActive: () => false },
+    { group: "insert", cmd: "youtube", ext: "youtube", icon: SVG_YOUTUBE, tooltip: "Insert YouTube",
+      hasDropdown: "youtubeUrl",
+      action: (ed, url) => { if (url) ed.commands.setYoutubeVideo({ src: url }); },
+      isActive: () => false },
+    { group: "insert", cmd: "table", ext: "table", icon: SVG_TABLE, tooltip: "Insert table",
+      hasDropdown: "tableGrid",
+      action: (ed, val) => { if (val) ed.chain().focus().insertTable({ rows: val.rows, cols: val.cols, withHeaderRow: true }).run(); },
+      isActive: (ed) => ed.isActive("table") },
+
+    // ── Links ──
+    { group: "links", cmd: "setLink", ext: "link", icon: SVG_LINK, tooltip: "Set link",
+      hasDropdown: "linkUrl",
+      action: (ed, url) => { if (url) ed.chain().focus().setLink({ href: url }).run(); },
+      isActive: (ed) => ed.isActive("link") },
+    { group: "links", cmd: "removeLink", ext: "link", icon: SVG_UNLINK, tooltip: "Remove link",
+      action: (ed) => ed.chain().focus().unsetLink().run(),
+      isActive: () => false },
+
+    // ── Alignment ──
+    { group: "alignment", cmd: "alignLeft", ext: "textalign", icon: SVG_ALIGN_LEFT, tooltip: "Align left",
+      action: (ed) => ed.chain().focus().setTextAlign("left").run(),
+      isActive: (ed) => ed.isActive({ textAlign: "left" }) },
+    { group: "alignment", cmd: "alignCenter", ext: "textalign", icon: SVG_ALIGN_CENTER, tooltip: "Align center",
+      action: (ed) => ed.chain().focus().setTextAlign("center").run(),
+      isActive: (ed) => ed.isActive({ textAlign: "center" }) },
+    { group: "alignment", cmd: "alignRight", ext: "textalign", icon: SVG_ALIGN_RIGHT, tooltip: "Align right",
+      action: (ed) => ed.chain().focus().setTextAlign("right").run(),
+      isActive: (ed) => ed.isActive({ textAlign: "right" }) },
+    { group: "alignment", cmd: "alignJustify", ext: "textalign", icon: SVG_ALIGN_JUSTIFY, tooltip: "Justify",
+      action: (ed) => ed.chain().focus().setTextAlign("justify").run(),
+      isActive: (ed) => ed.isActive({ textAlign: "justify" }) },
+
+    // ── Comments ──
+    { group: "comments", cmd: "addComment", ext: "comment", icon: SVG_COMMENT, tooltip: "Add comment",
+      action: null, // handled specially — fires event
+      isActive: () => false },
+    { group: "comments", cmd: "removeComment", ext: "comment", icon: SVG_COMMENT_X, tooltip: "Remove comment",
+      action: (ed) => ed.chain().focus().unsetComment().run(),
+      isActive: () => false },
+
+    // ── History ──
+    { group: "history", cmd: "undo", ext: "history", icon: SVG_UNDO, tooltip: "Undo",
+      action: (ed) => ed.chain().focus().undo().run(),
+      isActive: () => false,
+      isEnabled: (ed) => ed.can().undo() },
+    { group: "history", cmd: "redo", ext: "history", icon: SVG_REDO, tooltip: "Redo",
+      action: (ed) => ed.chain().focus().redo().run(),
+      isActive: () => false,
+      isEnabled: (ed) => ed.can().redo() },
+
+    // ── Other ──
+    { group: "other", cmd: "invisibleChars", ext: "invisiblecharacters", icon: SVG_PILCROW, tooltip: "Invisible characters",
+      action: (ed) => ed.commands.toggleInvisibleCharacters(),
+      isActive: () => false },
+];
+
+// ── Dropdown system ──────────────────────────────────────────
+
+function createDropdownPanel(type, btnDef, editor, instanceRef) {
+    const panel = document.createElement("div");
+    panel.className = "tiptap-toolbar-dropdown";
+
+    if (type === "colorPicker") {
+        const SWATCHES = [
+            "#000000","#434343","#666666","#999999","#b7b7b7","#ffffff",
+            "#FF2D7B","#FF6B6B","#FFA94D","#FFD43B","#69DB7C","#4DABF7",
+            "#7950F2","#E64980","#D6336C","#C2255C","#A61E4D","#862E9C",
+        ];
+        const grid = document.createElement("div");
+        grid.className = "tiptap-color-grid";
+        SWATCHES.forEach(c => {
+            const swatch = document.createElement("button");
+            swatch.className = "tiptap-color-swatch";
+            swatch.style.background = c;
+            swatch.dataset.color = c;
+            swatch.addEventListener("mousedown", (e) => {
+                e.preventDefault();
+                btnDef.action(editor, c);
+                closeActiveDropdown(instanceRef);
+            });
+            grid.appendChild(swatch);
+        });
+        panel.appendChild(grid);
+
+        const customRow = document.createElement("div");
+        customRow.className = "tiptap-dropdown-row";
+        const colorInput = document.createElement("input");
+        colorInput.type = "color";
+        colorInput.className = "tiptap-color-input";
+        colorInput.value = "#FF2D7B";
+        colorInput.addEventListener("input", (e) => {
+            e.preventDefault();
+            btnDef.action(editor, e.target.value);
+        });
+        customRow.appendChild(colorInput);
+
+        const clearBtn = document.createElement("button");
+        clearBtn.className = "tiptap-dropdown-btn tiptap-dropdown-btn-secondary";
+        clearBtn.textContent = "Clear";
+        clearBtn.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            btnDef.action(editor, null);
+            closeActiveDropdown(instanceRef);
+        });
+        customRow.appendChild(clearBtn);
+        panel.appendChild(customRow);
+
+    } else if (type === "fontFamily") {
+        const FONTS = ["Arial","Courier New","Georgia","Helvetica","Inter","Lato","Merriweather","Montserrat","Open Sans","Playfair Display","Roboto","Source Code Pro","Times New Roman","Verdana"];
+        const list = document.createElement("div");
+        list.className = "tiptap-dropdown-list";
+
+        const clearItem = document.createElement("button");
+        clearItem.className = "tiptap-dropdown-list-item";
+        clearItem.textContent = "Default";
+        clearItem.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            btnDef.action(editor, null);
+            closeActiveDropdown(instanceRef);
+        });
+        list.appendChild(clearItem);
+
+        FONTS.forEach(f => {
+            const item = document.createElement("button");
+            item.className = "tiptap-dropdown-list-item";
+            item.textContent = f;
+            item.style.fontFamily = f;
+            item.addEventListener("mousedown", (e) => {
+                e.preventDefault();
+                btnDef.action(editor, f);
+                closeActiveDropdown(instanceRef);
+            });
+            list.appendChild(item);
+        });
+        panel.appendChild(list);
+
+    } else if (type === "fontSize") {
+        const SIZES = ["8px","10px","12px","14px","16px","18px","20px","24px","28px","32px","36px","48px","64px","72px"];
+        const list = document.createElement("div");
+        list.className = "tiptap-dropdown-list";
+
+        const clearItem = document.createElement("button");
+        clearItem.className = "tiptap-dropdown-list-item";
+        clearItem.textContent = "Default";
+        clearItem.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            btnDef.action(editor, null);
+            closeActiveDropdown(instanceRef);
+        });
+        list.appendChild(clearItem);
+
+        SIZES.forEach(s => {
+            const item = document.createElement("button");
+            item.className = "tiptap-dropdown-list-item";
+            item.textContent = s;
+            item.addEventListener("mousedown", (e) => {
+                e.preventDefault();
+                btnDef.action(editor, s);
+                closeActiveDropdown(instanceRef);
+            });
+            list.appendChild(item);
+        });
+
+        const customRow = document.createElement("div");
+        customRow.className = "tiptap-dropdown-row";
+        const customInput = document.createElement("input");
+        customInput.type = "text";
+        customInput.className = "tiptap-dropdown-input";
+        customInput.placeholder = "e.g. 22px";
+        const applyBtn = document.createElement("button");
+        applyBtn.className = "tiptap-dropdown-btn";
+        applyBtn.textContent = "Apply";
+        applyBtn.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            if (customInput.value) { btnDef.action(editor, customInput.value); closeActiveDropdown(instanceRef); }
+        });
+        customRow.appendChild(customInput);
+        customRow.appendChild(applyBtn);
+        panel.appendChild(list);
+        panel.appendChild(customRow);
+
+    } else if (type === "headingLevel") {
+        const list = document.createElement("div");
+        list.className = "tiptap-dropdown-list tiptap-heading-list";
+        const headingLevels = instanceRef.data.headings || [1,2,3,4,5,6];
+        const labels = { 0: "Paragraph", 1: "Heading 1", 2: "Heading 2", 3: "Heading 3", 4: "Heading 4", 5: "Heading 5", 6: "Heading 6" };
+        const sizes = { 0: "1em", 1: "1.6em", 2: "1.4em", 3: "1.2em", 4: "1.1em", 5: "1em", 6: "0.9em" };
+
+        // Paragraph option
+        const pItem = document.createElement("button");
+        pItem.className = "tiptap-dropdown-list-item";
+        pItem.textContent = labels[0];
+        pItem.dataset.level = "0";
+        pItem.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            btnDef.action(editor, null);
+            closeActiveDropdown(instanceRef);
+        });
+        list.appendChild(pItem);
+
+        headingLevels.forEach(level => {
+            const item = document.createElement("button");
+            item.className = "tiptap-dropdown-list-item";
+            item.textContent = labels[level] || ("Heading " + level);
+            item.style.fontSize = sizes[level] || "1em";
+            item.style.fontWeight = "600";
+            item.dataset.level = level;
+            item.addEventListener("mousedown", (e) => {
+                e.preventDefault();
+                btnDef.action(editor, level);
+                closeActiveDropdown(instanceRef);
+            });
+            list.appendChild(item);
+        });
+        panel.appendChild(list);
+
+    } else if (type === "linkUrl" || type === "imageUrl" || type === "youtubeUrl") {
+        const placeholders = { linkUrl: "https://example.com", imageUrl: "https://example.com/image.png", youtubeUrl: "https://youtube.com/watch?v=..." };
+        const row = document.createElement("div");
+        row.className = "tiptap-dropdown-row";
+        const urlInput = document.createElement("input");
+        urlInput.type = "text";
+        urlInput.className = "tiptap-dropdown-input";
+        urlInput.placeholder = placeholders[type];
+
+        // Pre-fill current link URL if editing a link
+        if (type === "linkUrl") {
+            const attrs = editor.getAttributes("link");
+            if (attrs && attrs.href) urlInput.value = attrs.href;
+        }
+
+        const applyBtn = document.createElement("button");
+        applyBtn.className = "tiptap-dropdown-btn";
+        applyBtn.textContent = "Apply";
+        applyBtn.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            if (urlInput.value) { btnDef.action(editor, urlInput.value); closeActiveDropdown(instanceRef); }
+        });
+        urlInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") { e.preventDefault(); if (urlInput.value) { btnDef.action(editor, urlInput.value); closeActiveDropdown(instanceRef); } }
+        });
+        row.appendChild(urlInput);
+        row.appendChild(applyBtn);
+        panel.appendChild(row);
+
+        // Auto-focus the input after the panel is shown
+        requestAnimationFrame(() => urlInput.focus());
+
+    } else if (type === "tableGrid") {
+        const GRID_ROWS = 6, GRID_COLS = 6;
+        const label = document.createElement("div");
+        label.className = "tiptap-grid-label";
+        label.textContent = "Select table size";
+
+        const grid = document.createElement("div");
+        grid.className = "tiptap-table-grid";
+        grid.style.gridTemplateColumns = `repeat(${GRID_COLS}, 1fr)`;
+
+        for (let r = 1; r <= GRID_ROWS; r++) {
+            for (let c = 1; c <= GRID_COLS; c++) {
+                const cell = document.createElement("div");
+                cell.className = "tiptap-grid-cell";
+                cell.dataset.row = r;
+                cell.dataset.col = c;
+                cell.addEventListener("mouseenter", () => {
+                    label.textContent = `${r} × ${c}`;
+                    grid.querySelectorAll(".tiptap-grid-cell").forEach(gc => {
+                        const gr = parseInt(gc.dataset.row), gcol = parseInt(gc.dataset.col);
+                        gc.classList.toggle("is-active", gr <= r && gcol <= c);
+                    });
+                });
+                cell.addEventListener("mousedown", (e) => {
+                    e.preventDefault();
+                    btnDef.action(editor, { rows: r, cols: c });
+                    closeActiveDropdown(instanceRef);
+                });
+                grid.appendChild(cell);
+            }
+        }
+        panel.appendChild(label);
+        panel.appendChild(grid);
+    }
+
+    return panel;
+}
+
+function closeActiveDropdown(instanceRef) {
+    if (instanceRef.data._activeDropdown) {
+        instanceRef.data._activeDropdown.panel.remove();
+        instanceRef.data._activeDropdown.btn.classList.remove("is-dropdown-open");
+        instanceRef.data._activeDropdown = null;
+    }
+    if (instanceRef.data._dropdownCloseListener) {
+        document.removeEventListener("mousedown", instanceRef.data._dropdownCloseListener, true);
+        instanceRef.data._dropdownCloseListener = null;
+    }
+}
+
+function toggleDropdown(btnEl, btnDef, editor, instanceRef, toolbarEl) {
+    // If this dropdown is already open, close it
+    if (instanceRef.data._activeDropdown && instanceRef.data._activeDropdown.cmd === btnDef.cmd) {
+        closeActiveDropdown(instanceRef);
+        return;
+    }
+    // Close any other open dropdown
+    closeActiveDropdown(instanceRef);
+
+    const panel = createDropdownPanel(btnDef.hasDropdown, btnDef, editor, instanceRef);
+    btnEl.style.position = "relative";
+    btnEl.appendChild(panel);
+    btnEl.classList.add("is-dropdown-open");
+
+    instanceRef.data._activeDropdown = { panel, btn: btnEl, cmd: btnDef.cmd };
+
+    // Close on outside click
+    instanceRef.data._dropdownCloseListener = (e) => {
+        if (!panel.contains(e.target) && !btnEl.contains(e.target)) {
+            closeActiveDropdown(instanceRef);
+        }
+    };
+    setTimeout(() => {
+        document.addEventListener("mousedown", instanceRef.data._dropdownCloseListener, true);
+    }, 0);
+}
+
+// ── Build toolbar DOM ────────────────────────────────────────
+
+function buildToolbar(properties, ext, randomId, instanceRef) {
+    const toolbar = document.createElement("div");
+    toolbar.id = "tiptapToolbar-" + randomId;
+    toolbar.className = "tiptap-toolbar";
+
+    const buttonMap = {};
+    let lastGroupEl = null;
+
+    TOOLBAR_GROUP_ORDER.forEach(groupName => {
+        const groupBtns = TOOLBAR_BUTTONS.filter(b => b.group === groupName);
+        if (groupBtns.length === 0) return;
+
+        const groupEl = document.createElement("div");
+        groupEl.className = "tiptap-toolbar-group";
+        groupEl.dataset.group = groupName;
+
+        let visibleCount = 0;
+
+        groupBtns.forEach(btnDef => {
+            // Check extension visibility
+            const extKeys = Array.isArray(btnDef.ext) ? btnDef.ext : [btnDef.ext];
+            const isVisible = extKeys.some(k => ext[k]);
+            if (!isVisible) return;
+
+            visibleCount++;
+            const btn = document.createElement("button");
+            btn.className = "tiptap-toolbar-btn";
+            btn.dataset.cmd = btnDef.cmd;
+            btn.innerHTML = btnDef.icon;
+            btn.title = btnDef.tooltip || "";
+
+            btn.addEventListener("mousedown", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const editor = instanceRef.data.editor;
+                if (!editor) return;
+
+                if (btnDef.hasDropdown) {
+                    toggleDropdown(btn, btnDef, editor, instanceRef, toolbar);
+                } else if (btnDef.cmd === "addComment") {
+                    instanceRef.triggerEvent("toolbar_add_comment");
+                } else if (btnDef.action) {
+                    btnDef.action(editor);
+                }
+            });
+
+            groupEl.appendChild(btn);
+            buttonMap[btnDef.cmd] = { el: btn, def: btnDef };
+        });
+
+        if (visibleCount === 0) return;
+
+        // Add divider before group (except the first)
+        if (lastGroupEl) {
+            const divider = document.createElement("div");
+            divider.className = "tiptap-toolbar-divider";
+            toolbar.appendChild(divider);
+        }
+        toolbar.appendChild(groupEl);
+        lastGroupEl = groupEl;
+    });
+
+    return { toolbar, buttonMap };
+}
+
+// ── Update toolbar active states ─────────────────────────────
+
+function updateToolbarStates(editor, buttonMap, instanceRef) {
+    if (!editor || !buttonMap) return;
+    Object.keys(buttonMap).forEach(cmd => {
+        const { el, def } = buttonMap[cmd];
+
+        // Active state
+        if (def.isActive) {
+            el.classList.toggle("is-active", def.isActive(editor));
+        }
+
+        // Enabled state
+        if (def.isEnabled) {
+            const enabled = def.isEnabled(editor);
+            el.classList.toggle("is-disabled", !enabled);
+            el.disabled = !enabled;
+        }
+    });
+
+    // Update heading dropdown label
+    if (buttonMap.heading) {
+        const headingBtn = buttonMap.heading.el;
+        let label = "¶";
+        for (let i = 1; i <= 6; i++) {
+            if (editor.isActive("heading", { level: i })) { label = "H" + i; break; }
+        }
+        // Show a small label indicator next to the icon
+        let indicator = headingBtn.querySelector(".tiptap-heading-indicator");
+        if (!indicator) {
+            indicator = document.createElement("span");
+            indicator.className = "tiptap-heading-indicator";
+            headingBtn.appendChild(indicator);
+        }
+        indicator.textContent = label;
+    }
+}
+
+// ─────────────────────────────────────────────────────────────
 // setupEditor — called once from update.js on first property load
 // ─────────────────────────────────────────────────────────────
 instance.data.setupEditor = function (properties, context) {
@@ -1257,11 +2071,9 @@ instance.data.setupEditor = function (properties, context) {
     // create the editor div
     const randomId = (Math.random() + 1).toString(36).substring(3);
     instance.data.randomId = randomId;
-    var d = document.createElement("div");
-    d.id = "tiptapEditor-" + randomId;
-    d.style = "flex-grow: 1; display: flex;";
-    instance.data.tiptapEditorID = d.id;
-    instance.canvas.append(d);
+
+    // Set vertical stacking for toolbar + editor layout
+    instance.canvas.css("flex-direction", "column");
 
     // pull libraries from window.tiptap
     const {
@@ -1352,7 +2164,7 @@ instance.data.setupEditor = function (properties, context) {
         textalign: properties.ext_textalign,
         dropcursor: properties.ext_dropcursor,
         gapcursor: properties.ext_gapcursor,
-        history: properties.ext_history,
+        history: properties.ext_history && !properties.collab_active,
         hardbreak: properties.ext_hardbreak,
         mention: properties.ext_mention,
         uniqueid: properties.ext_uniqueid,
@@ -1862,7 +2674,7 @@ instance.data.setupEditor = function (properties, context) {
     // ── Editor options & callbacks ───────────────────────────
 
     const options = {
-        element: d,
+        element: null, // set later after toolbar is built
         editable: properties.isEditable,
         content: content,
         extensions: extensions,
@@ -1969,10 +2781,12 @@ instance.data.setupEditor = function (properties, context) {
             instance.publishState("can_redo", editor.can().redo());
             instance.publishState("characterCount", editor.storage.characterCount.characters());
             instance.publishState("wordCount", editor.storage.characterCount.words());
+            if (instance.data.updateToolbarStates) instance.data.updateToolbarStates(editor);
         },
         onSelectionUpdate({ editor }) {
             instance.data.getSelection(editor);
             instance.data.publishActiveStates(editor);
+            if (instance.data.updateToolbarStates) instance.data.updateToolbarStates(editor);
         },
     };
 
@@ -2059,6 +2873,35 @@ instance.data.setupEditor = function (properties, context) {
     // ── Collaboration ────────────────────────────────────────
 
     instance.data.maybeSetupCollaboration(instance, properties, options, extensions);
+
+    // ── Build toolbar and editor div, append to canvas ───────
+
+    var d = document.createElement("div");
+    d.id = "tiptapEditor-" + randomId;
+    d.style = "flex-grow: 1; display: flex;";
+    instance.data.tiptapEditorID = d.id;
+    options.element = d;
+
+    // Build and insert toolbar before editor div
+    const { toolbar, buttonMap } = buildToolbar(properties, instance.data.ext, randomId, instance);
+    instance.data.toolbarEl = toolbar;
+    instance.data.toolbarButtonMap = buttonMap;
+    if (!properties.toolbar_show) toolbar.style.display = "none";
+    if (properties.toolbar_sticky) toolbar.classList.add("tiptap-toolbar-sticky");
+    instance.canvas.append(toolbar);
+
+    // Handle overflow for sticky positioning
+    if (properties.toolbar_sticky) {
+        instance.canvas.css("overflow", "visible");
+    }
+
+    // Append editor div after toolbar
+    instance.canvas.append(d);
+
+    // Wire up toolbar state updates
+    instance.data.updateToolbarStates = function (editor) {
+        updateToolbarStates(editor, instance.data.toolbarButtonMap, instance);
+    };
 
     // ── Create the editor ────────────────────────────────────
 

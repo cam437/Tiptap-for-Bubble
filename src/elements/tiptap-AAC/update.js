@@ -163,3 +163,12 @@ if (!!instance.data.editor_is_ready && !!properties.collab_active) {
 }
 
 instance.data.applyStylesheet(properties);
+
+// ── Toolbar property change handlers ──
+if (instance.data.toolbarEl) {
+    instance.data.toolbarEl.style.display = properties.toolbar_show ? "" : "none";
+    instance.data.toolbarEl.classList.toggle("tiptap-toolbar-sticky", !!properties.toolbar_sticky);
+    if (properties.toolbar_sticky) {
+        instance.canvas.css("overflow", "visible");
+    }
+}
