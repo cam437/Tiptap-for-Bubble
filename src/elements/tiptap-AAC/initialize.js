@@ -2072,8 +2072,8 @@ instance.data.setupEditor = function (properties, context) {
     const randomId = (Math.random() + 1).toString(36).substring(3);
     instance.data.randomId = randomId;
 
-    // Set vertical stacking for toolbar + editor layout
-    instance.canvas.css("flex-direction", "column");
+    // Canvas needs block flow (not flex row) so toolbar + editor stack vertically and scroll works
+    instance.canvas.css({ display: "block", overflow: "auto" });
 
     // pull libraries from window.tiptap
     const {
@@ -2878,7 +2878,6 @@ instance.data.setupEditor = function (properties, context) {
 
     var d = document.createElement("div");
     d.id = "tiptapEditor-" + randomId;
-    d.style = "flex-grow: 1; flex-shrink: 0; display: flex;";
     instance.data.tiptapEditorID = d.id;
     options.element = d;
 
