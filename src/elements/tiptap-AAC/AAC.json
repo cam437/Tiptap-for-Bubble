@@ -1497,6 +1497,102 @@
       "rank": 216,
       "value": "boolean"
     },
+    "toolbar_bg": {
+      "caption": "Toolbar background",
+      "default_val": "rgba(13, 10, 15, 1)",
+      "doc": "Background colour of the formatting toolbar.",
+      "editor": "Color",
+      "in_style": true,
+      "name": "toolbar_bg",
+      "optional": true,
+      "rank": 217
+    },
+    "toolbar_padding_top": {
+      "caption": "Toolbar padding - top",
+      "default_val": "6px",
+      "doc": "Top padding inside the toolbar. Accepts CSS length values (e.g. 6px, 0.5rem).",
+      "editor": "StaticText",
+      "in_style": true,
+      "name": "toolbar_padding_top",
+      "optional": true,
+      "rank": 218
+    },
+    "toolbar_padding_right": {
+      "caption": "Toolbar padding - right",
+      "default_val": "8px",
+      "doc": "Right padding inside the toolbar. Accepts CSS length values (e.g. 8px, 0.5rem).",
+      "editor": "StaticText",
+      "in_style": true,
+      "name": "toolbar_padding_right",
+      "optional": true,
+      "rank": 219
+    },
+    "toolbar_padding_bottom": {
+      "caption": "Toolbar padding - bottom",
+      "default_val": "6px",
+      "doc": "Bottom padding inside the toolbar. Accepts CSS length values (e.g. 6px, 0.5rem).",
+      "editor": "StaticText",
+      "in_style": true,
+      "name": "toolbar_padding_bottom",
+      "optional": true,
+      "rank": 220
+    },
+    "toolbar_padding_left": {
+      "caption": "Toolbar padding - left",
+      "default_val": "8px",
+      "doc": "Left padding inside the toolbar. Accepts CSS length values (e.g. 8px, 0.5rem).",
+      "editor": "StaticText",
+      "in_style": true,
+      "name": "toolbar_padding_left",
+      "optional": true,
+      "rank": 221
+    },
+    "content_section_label": {
+      "caption": "----- Content -----",
+      "editor": "Label",
+      "name": "content_section_label",
+      "rank": 222
+    },
+    "content_padding_top": {
+      "caption": "Content padding - top",
+      "default_val": "0px",
+      "doc": "Top padding inside the content area. Accepts CSS length values (e.g. 16px, 1rem).",
+      "editor": "StaticText",
+      "in_style": true,
+      "name": "content_padding_top",
+      "optional": true,
+      "rank": 223
+    },
+    "content_padding_right": {
+      "caption": "Content padding - right",
+      "default_val": "0px",
+      "doc": "Right padding inside the content area. Accepts CSS length values (e.g. 16px, 1rem).",
+      "editor": "StaticText",
+      "in_style": true,
+      "name": "content_padding_right",
+      "optional": true,
+      "rank": 224
+    },
+    "content_padding_bottom": {
+      "caption": "Content padding - bottom",
+      "default_val": "0px",
+      "doc": "Bottom padding inside the content area. Accepts CSS length values (e.g. 16px, 1rem).",
+      "editor": "StaticText",
+      "in_style": true,
+      "name": "content_padding_bottom",
+      "optional": true,
+      "rank": 225
+    },
+    "content_padding_left": {
+      "caption": "Content padding - left",
+      "default_val": "0px",
+      "doc": "Left padding inside the content area. Accepts CSS length values (e.g. 16px, 1rem).",
+      "editor": "StaticText",
+      "in_style": true,
+      "name": "content_padding_left",
+      "optional": true,
+      "rank": 226
+    },
     "toolbar_adv": {
       "caption": "Toolbar CSS override",
       "doc": "Inject custom CSS to override toolbar styles. This is raw CSS injected into the stylesheet.",
@@ -1504,7 +1600,7 @@
       "long_text": true,
       "name": "toolbar_adv",
       "optional": true,
-      "rank": 218
+      "rank": 227
     },
     "ext_bulletlist": {
       "caption": "Bullet List",

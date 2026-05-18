@@ -439,12 +439,16 @@ try {
     flex-wrap: wrap;
     align-items: center;
     gap: 2px;
-    padding: 6px 8px;
-    background: #0D0A0F;
+    padding: ${properties.toolbar_padding_top || "6px"} ${properties.toolbar_padding_right || "8px"} ${properties.toolbar_padding_bottom || "6px"} ${properties.toolbar_padding_left || "8px"};
+    background: ${properties.toolbar_bg || "#0D0A0F"};
     border-bottom: 1px solid #3F3F46;
     flex-shrink: 0;
     user-select: none;
     z-index: 5;
+}
+
+#tiptapEditor-${instance.data.randomId} {
+    padding: ${properties.content_padding_top || "0px"} ${properties.content_padding_right || "0px"} ${properties.content_padding_bottom || "0px"} ${properties.content_padding_left || "0px"};
 }
 
 
@@ -672,6 +676,35 @@ try {
 
 #tiptapToolbar-${instance.data.randomId} .tiptap-heading-list .tiptap-dropdown-list-item {
     font-weight: 400;
+}
+
+/* ── Icon-based dropdown items ── */
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-dropdown-icon-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-dropdown-icon-item svg {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-dropdown-divider {
+    height: 1px;
+    background: #3F3F46;
+    margin: 4px 0;
+}
+
+#tiptapToolbar-${instance.data.randomId} .tiptap-dropdown-header {
+    padding: 4px 10px 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #a1a1aa;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
 }
 
 ${properties.toolbar_adv || ""}
@@ -1528,135 +1561,63 @@ const SVG_COMMENT_X = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height
 const SVG_UNDO = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13"/></svg>`;
 const SVG_REDO = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7v6h-6"/><path d="M3 17a9 9 0 0 1 9-9 9 9 0 0 1 6 2.3L21 13"/></svg>`;
 const SVG_PILCROW = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 4v16"/><path d="M17 4v16"/><path d="M19 4H9.5a4.5 4.5 0 0 0 0 9H13"/></svg>`;
+const SVG_PLUS = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>`;
 
-const TOOLBAR_GROUP_ORDER = ["text","color","font","headings","lists","blocks","insert","links","alignment","comments","history","other"];
+const TOOLBAR_GROUP_ORDER = ["formatting","headings","lists","insertBlock","links","alignment","comments","history"];
 
 const TOOLBAR_BUTTONS = [
-    // ── Text formatting ──
-    { group: "text", cmd: "bold", ext: "bold", icon: SVG_BOLD, tooltip: "Bold",
+    // ── Text formatting (individual buttons) ──
+    { group: "formatting", cmd: "bold", ext: "bold", icon: SVG_BOLD, tooltip: "Bold",
       action: (ed) => ed.chain().focus().toggleBold().run(),
       isActive: (ed) => ed.isActive("bold") },
-    { group: "text", cmd: "italic", ext: "italic", icon: SVG_ITALIC, tooltip: "Italic",
+    { group: "formatting", cmd: "italic", ext: "italic", icon: SVG_ITALIC, tooltip: "Italic",
       action: (ed) => ed.chain().focus().toggleItalic().run(),
       isActive: (ed) => ed.isActive("italic") },
-    { group: "text", cmd: "underline", ext: "underline", icon: SVG_UNDERLINE, tooltip: "Underline",
+    { group: "formatting", cmd: "underline", ext: "underline", icon: SVG_UNDERLINE, tooltip: "Underline",
       action: (ed) => ed.chain().focus().toggleUnderline().run(),
       isActive: (ed) => ed.isActive("underline") },
-    { group: "text", cmd: "strike", ext: "strike", icon: SVG_STRIKE, tooltip: "Strikethrough",
+    { group: "formatting", cmd: "strike", ext: "strike", icon: SVG_STRIKE, tooltip: "Strikethrough",
       action: (ed) => ed.chain().focus().toggleStrike().run(),
       isActive: (ed) => ed.isActive("strike") },
-    { group: "text", cmd: "subscript", ext: "subscript", icon: SVG_SUBSCRIPT, tooltip: "Subscript",
-      action: (ed) => ed.chain().focus().toggleSubscript().run(),
-      isActive: (ed) => ed.isActive("subscript") },
-    { group: "text", cmd: "superscript", ext: "superscript", icon: SVG_SUPERSCRIPT, tooltip: "Superscript",
-      action: (ed) => ed.chain().focus().toggleSuperscript().run(),
-      isActive: (ed) => ed.isActive("superscript") },
-
-    // ── Color ──
-    { group: "color", cmd: "textColor", ext: "color", icon: SVG_PALETTE, tooltip: "Text color",
-      hasDropdown: "colorPicker",
-      action: (ed, val) => val ? ed.chain().focus().setColor(val).run() : ed.chain().focus().unsetColor().run(),
-      isActive: (ed) => !!ed.getAttributes("textStyle").color },
-    { group: "color", cmd: "highlight", ext: "highlight", icon: SVG_HIGHLIGHTER, tooltip: "Highlight",
-      hasDropdown: "colorPicker",
-      action: (ed, val) => val ? ed.chain().focus().toggleHighlight({ color: val }).run() : ed.chain().focus().unsetHighlight().run(),
+    { group: "formatting", cmd: "highlight", ext: "highlight", icon: SVG_HIGHLIGHTER, tooltip: "Highlight",
+      action: (ed) => ed.chain().focus().toggleHighlight().run(),
       isActive: (ed) => ed.isActive("highlight") },
 
-    // ── Font ──
-    { group: "font", cmd: "fontFamily", ext: "fontfamily", icon: SVG_TYPE, tooltip: "Font family",
-      hasDropdown: "fontFamily",
-      action: (ed, val) => val ? ed.chain().focus().setFontFamily(val).run() : ed.chain().focus().unsetFontFamily().run(),
-      isActive: () => false },
-    { group: "font", cmd: "fontSize", ext: "fontsize", icon: SVG_FONTSIZE, tooltip: "Font size",
-      hasDropdown: "fontSize",
-      action: (ed, val) => val ? ed.chain().focus().setFontSize(val).run() : ed.chain().focus().unsetFontSize().run(),
-      isActive: () => false },
-
-    // ── Headings ──
+    // ── Headings (unchanged) ──
     { group: "headings", cmd: "heading", ext: "heading", icon: SVG_HEADING, tooltip: "Heading",
       hasDropdown: "headingLevel",
       action: (ed, level) => level ? ed.chain().focus().toggleHeading({ level }).run() : ed.chain().focus().setParagraph().run(),
       isActive: (ed) => ed.isActive("heading") },
 
-    // ── Lists ──
-    { group: "lists", cmd: "bulletList", ext: "bulletlist", icon: SVG_LIST, tooltip: "Bullet list",
-      action: (ed) => ed.chain().focus().toggleBulletList().run(),
-      isActive: (ed) => ed.isActive("bulletList") },
-    { group: "lists", cmd: "orderedList", ext: "orderedlist", icon: SVG_LISTORDERED, tooltip: "Ordered list",
-      action: (ed) => ed.chain().focus().toggleOrderedList().run(),
-      isActive: (ed) => ed.isActive("orderedList") },
-    { group: "lists", cmd: "taskList", ext: "tasklist", icon: SVG_TASKLIST, tooltip: "Task list",
-      action: (ed) => ed.chain().focus().toggleTaskList().run(),
-      isActive: (ed) => ed.isActive("taskList") },
-    { group: "lists", cmd: "indent", ext: ["bulletlist", "orderedlist", "tasklist"], icon: SVG_INDENT, tooltip: "Indent",
-      action: (ed) => ed.chain().focus().sinkListItem("listItem").run(),
-      isActive: () => false,
-      isEnabled: (ed) => ed.can().sinkListItem("listItem") },
-    { group: "lists", cmd: "outdent", ext: ["bulletlist", "orderedlist", "tasklist"], icon: SVG_OUTDENT, tooltip: "Outdent",
-      action: (ed) => ed.chain().focus().liftListItem("listItem").run(),
-      isActive: () => false,
-      isEnabled: (ed) => ed.can().liftListItem("listItem") },
+    // ── Lists dropdown ──
+    { group: "lists", cmd: "listDropdown", ext: ["bulletlist", "orderedlist", "tasklist"], icon: SVG_LIST, tooltip: "Lists",
+      hasDropdown: "listPicker",
+      action: null,
+      isActive: (ed) => ed.isActive("bulletList") || ed.isActive("orderedList") || ed.isActive("taskList") },
 
-    // ── Blocks ──
-    { group: "blocks", cmd: "blockquote", ext: "blockquote", icon: SVG_QUOTE, tooltip: "Blockquote",
-      action: (ed) => ed.chain().focus().toggleBlockquote().run(),
-      isActive: (ed) => ed.isActive("blockquote") },
-    { group: "blocks", cmd: "codeBlock", ext: "codeblock", icon: SVG_CODE, tooltip: "Code block",
-      action: (ed) => ed.chain().focus().toggleCodeBlock().run(),
-      isActive: (ed) => ed.isActive("codeBlock") },
-    { group: "blocks", cmd: "horizontalRule", ext: "horizontalrule", icon: SVG_MINUS, tooltip: "Horizontal rule",
-      action: (ed) => ed.chain().focus().setHorizontalRule().run(),
+    // ── Insert block dropdown ──
+    { group: "insertBlock", cmd: "insertDropdown", ext: ["blockquote", "codeblock", "horizontalrule", "image", "youtube", "table"], icon: SVG_PLUS, tooltip: "Insert",
+      hasDropdown: "insertBlock",
+      action: null,
       isActive: () => false },
-    { group: "blocks", cmd: "details", ext: "details", icon: SVG_DETAILS, tooltip: "Details / Accordion",
-      action: (ed) => ed.chain().focus().setDetails().run(),
-      isActive: (ed) => ed.isActive("details") },
 
-    // ── Insert ──
-    { group: "insert", cmd: "image", ext: "image", icon: SVG_IMAGE, tooltip: "Insert image",
-      hasDropdown: "imageUrl",
-      action: (ed, url) => { if (url) ed.chain().focus().setImage({ src: url }).run(); },
-      isActive: () => false },
-    { group: "insert", cmd: "youtube", ext: "youtube", icon: SVG_YOUTUBE, tooltip: "Insert YouTube",
-      hasDropdown: "youtubeUrl",
-      action: (ed, url) => { if (url) ed.commands.setYoutubeVideo({ src: url }); },
-      isActive: () => false },
-    { group: "insert", cmd: "table", ext: "table", icon: SVG_TABLE, tooltip: "Insert table",
-      hasDropdown: "tableGrid",
-      action: (ed, val) => { if (val) ed.chain().focus().insertTable({ rows: val.rows, cols: val.cols, withHeaderRow: true }).run(); },
-      isActive: (ed) => ed.isActive("table") },
-
-    // ── Links ──
-    { group: "links", cmd: "setLink", ext: "link", icon: SVG_LINK, tooltip: "Set link",
+    // ── Link ──
+    { group: "links", cmd: "setLink", ext: "link", icon: SVG_LINK, tooltip: "Link",
       hasDropdown: "linkUrl",
       action: (ed, url) => { if (url) ed.chain().focus().setLink({ href: url }).run(); },
       isActive: (ed) => ed.isActive("link") },
-    { group: "links", cmd: "removeLink", ext: "link", icon: SVG_UNLINK, tooltip: "Remove link",
-      action: (ed) => ed.chain().focus().unsetLink().run(),
+
+    // ── Align dropdown ──
+    { group: "alignment", cmd: "alignDropdown", ext: "textalign", icon: SVG_ALIGN_LEFT, tooltip: "Alignment",
+      hasDropdown: "alignPicker",
+      action: null,
       isActive: () => false },
 
-    // ── Alignment ──
-    { group: "alignment", cmd: "alignLeft", ext: "textalign", icon: SVG_ALIGN_LEFT, tooltip: "Align left",
-      action: (ed) => ed.chain().focus().setTextAlign("left").run(),
-      isActive: (ed) => ed.isActive({ textAlign: "left" }) },
-    { group: "alignment", cmd: "alignCenter", ext: "textalign", icon: SVG_ALIGN_CENTER, tooltip: "Align center",
-      action: (ed) => ed.chain().focus().setTextAlign("center").run(),
-      isActive: (ed) => ed.isActive({ textAlign: "center" }) },
-    { group: "alignment", cmd: "alignRight", ext: "textalign", icon: SVG_ALIGN_RIGHT, tooltip: "Align right",
-      action: (ed) => ed.chain().focus().setTextAlign("right").run(),
-      isActive: (ed) => ed.isActive({ textAlign: "right" }) },
-    { group: "alignment", cmd: "alignJustify", ext: "textalign", icon: SVG_ALIGN_JUSTIFY, tooltip: "Justify",
-      action: (ed) => ed.chain().focus().setTextAlign("justify").run(),
-      isActive: (ed) => ed.isActive({ textAlign: "justify" }) },
-
-    // ── Comments ──
-    { group: "comments", cmd: "addComment", ext: "comment", icon: SVG_COMMENT, tooltip: "Add comment",
-      action: null, // handled specially — fires event
+    // ── Comment ──
+    { group: "comments", cmd: "addComment", ext: "comment", icon: SVG_COMMENT, tooltip: "Comment",
+      action: null,
       isActive: () => false,
       isEnabled: (ed) => { const { from, to } = ed.state.selection; return from !== to; } },
-    { group: "comments", cmd: "removeComment", ext: "comment", icon: SVG_COMMENT_X, tooltip: "Remove comment",
-      action: null, // handled specially — fires event
-      isActive: () => false,
-      isEnabled: (ed) => ed.isActive("comment") },
 
     // ── History ──
     { group: "history", cmd: "undo", ext: "history", icon: SVG_UNDO, tooltip: "Undo",
@@ -1667,11 +1628,6 @@ const TOOLBAR_BUTTONS = [
       action: (ed) => ed.chain().focus().redo().run(),
       isActive: () => false,
       isEnabled: (ed) => ed.can().redo() },
-
-    // ── Other ──
-    { group: "other", cmd: "invisibleChars", ext: "invisiblecharacters", icon: SVG_PILCROW, tooltip: "Invisible characters",
-      action: (ed) => ed.commands.toggleInvisibleCharacters(),
-      isActive: () => false },
 ];
 
 // ── Dropdown system ──────────────────────────────────────────
@@ -1891,7 +1847,7 @@ function createDropdownPanel(type, btnDef, editor, instanceRef) {
                 });
                 cell.addEventListener("mousedown", (e) => {
                     e.preventDefault();
-                    btnDef.action(editor, { rows: r, cols: c });
+                    editor.chain().focus().insertTable({ rows: r, cols: c, withHeaderRow: true }).run();
                     closeActiveDropdown(instanceRef);
                 });
                 grid.appendChild(cell);
@@ -1899,6 +1855,230 @@ function createDropdownPanel(type, btnDef, editor, instanceRef) {
         }
         panel.appendChild(label);
         panel.appendChild(grid);
+
+    // ── Lists picker ──
+    } else if (type === "listPicker") {
+        const ext = instanceRef.data.ext || {};
+        const list = document.createElement("div");
+        list.className = "tiptap-dropdown-list";
+
+        const listItems = [
+            { icon: SVG_LIST, label: "Bullet list", ext: "bulletlist",
+              action: () => editor.chain().focus().toggleBulletList().run(),
+              isActive: () => editor.isActive("bulletList") },
+            { icon: SVG_LISTORDERED, label: "Numbered list", ext: "orderedlist",
+              action: () => editor.chain().focus().toggleOrderedList().run(),
+              isActive: () => editor.isActive("orderedList") },
+            { icon: SVG_TASKLIST, label: "Checklist", ext: "tasklist",
+              action: () => editor.chain().focus().toggleTaskList().run(),
+              isActive: () => editor.isActive("taskList") },
+        ];
+
+        listItems.forEach(item => {
+            if (!ext[item.ext]) return;
+            const row = document.createElement("button");
+            row.className = "tiptap-dropdown-list-item tiptap-dropdown-icon-item";
+            row.innerHTML = item.icon + `<span>${item.label}</span>`;
+            if (item.isActive()) row.classList.add("is-active");
+            row.addEventListener("mousedown", (e) => {
+                e.preventDefault();
+                item.action();
+                closeActiveDropdown(instanceRef);
+            });
+            list.appendChild(row);
+        });
+
+        // Divider before indent/outdent
+        const divider = document.createElement("div");
+        divider.className = "tiptap-dropdown-divider";
+        list.appendChild(divider);
+
+        const indentItem = document.createElement("button");
+        indentItem.className = "tiptap-dropdown-list-item tiptap-dropdown-icon-item";
+        indentItem.innerHTML = SVG_INDENT + `<span>Indent</span>`;
+        const canIndent = editor.can().sinkListItem("listItem");
+        if (!canIndent) { indentItem.classList.add("is-disabled"); indentItem.disabled = true; }
+        indentItem.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            editor.chain().focus().sinkListItem("listItem").run();
+            closeActiveDropdown(instanceRef);
+        });
+        list.appendChild(indentItem);
+
+        const outdentItem = document.createElement("button");
+        outdentItem.className = "tiptap-dropdown-list-item tiptap-dropdown-icon-item";
+        outdentItem.innerHTML = SVG_OUTDENT + `<span>Outdent</span>`;
+        const canOutdent = editor.can().liftListItem("listItem");
+        if (!canOutdent) { outdentItem.classList.add("is-disabled"); outdentItem.disabled = true; }
+        outdentItem.addEventListener("mousedown", (e) => {
+            e.preventDefault();
+            editor.chain().focus().liftListItem("listItem").run();
+            closeActiveDropdown(instanceRef);
+        });
+        list.appendChild(outdentItem);
+
+        panel.appendChild(list);
+
+    // ── Insert block picker ──
+    } else if (type === "insertBlock") {
+        const ext = instanceRef.data.ext || {};
+
+        function buildInsertList() {
+            panel.innerHTML = "";
+            const list = document.createElement("div");
+            list.className = "tiptap-dropdown-list";
+
+            // Simple action items
+            const simpleItems = [
+                { icon: SVG_QUOTE, label: "Blockquote", ext: "blockquote",
+                  action: () => editor.chain().focus().toggleBlockquote().run() },
+                { icon: SVG_CODE, label: "Code block", ext: "codeblock",
+                  action: () => editor.chain().focus().toggleCodeBlock().run() },
+                { icon: SVG_MINUS, label: "Divider", ext: "horizontalrule",
+                  action: () => editor.chain().focus().setHorizontalRule().run() },
+            ];
+
+            simpleItems.forEach(item => {
+                if (!ext[item.ext]) return;
+                const row = document.createElement("button");
+                row.className = "tiptap-dropdown-list-item tiptap-dropdown-icon-item";
+                row.innerHTML = item.icon + `<span>${item.label}</span>`;
+                row.addEventListener("mousedown", (e) => {
+                    e.preventDefault();
+                    item.action();
+                    closeActiveDropdown(instanceRef);
+                });
+                list.appendChild(row);
+            });
+
+            // Items with secondary input
+            const inputItems = [
+                { icon: SVG_IMAGE, label: "Image", ext: "image",
+                  placeholder: "https://example.com/image.png",
+                  action: (url) => editor.chain().focus().setImage({ src: url }).run() },
+                { icon: SVG_YOUTUBE, label: "Video", ext: "youtube",
+                  placeholder: "https://youtube.com/watch?v=...",
+                  action: (url) => editor.commands.setYoutubeVideo({ src: url }) },
+            ];
+
+            inputItems.forEach(item => {
+                if (!ext[item.ext]) return;
+                const row = document.createElement("button");
+                row.className = "tiptap-dropdown-list-item tiptap-dropdown-icon-item";
+                row.innerHTML = item.icon + `<span>${item.label}\u2026</span>`;
+                row.addEventListener("mousedown", (e) => {
+                    e.preventDefault();
+                    buildUrlInput(item.label, item.placeholder, item.action);
+                });
+                list.appendChild(row);
+            });
+
+            // Table grid
+            if (ext.table) {
+                const row = document.createElement("button");
+                row.className = "tiptap-dropdown-list-item tiptap-dropdown-icon-item";
+                row.innerHTML = SVG_TABLE + `<span>Table\u2026</span>`;
+                row.addEventListener("mousedown", (e) => {
+                    e.preventDefault();
+                    buildTableGrid();
+                });
+                list.appendChild(row);
+            }
+
+            panel.appendChild(list);
+        }
+
+        function buildUrlInput(label, placeholder, action) {
+            panel.innerHTML = "";
+            const header = document.createElement("div");
+            header.className = "tiptap-dropdown-header";
+            header.textContent = label;
+            panel.appendChild(header);
+
+            const row = document.createElement("div");
+            row.className = "tiptap-dropdown-row";
+            const urlInput = document.createElement("input");
+            urlInput.type = "text";
+            urlInput.className = "tiptap-dropdown-input";
+            urlInput.placeholder = placeholder;
+            const applyBtn = document.createElement("button");
+            applyBtn.className = "tiptap-dropdown-btn";
+            applyBtn.textContent = "Apply";
+            applyBtn.addEventListener("mousedown", (ev) => {
+                ev.preventDefault();
+                if (urlInput.value) { action(urlInput.value); closeActiveDropdown(instanceRef); }
+            });
+            urlInput.addEventListener("keydown", (ev) => {
+                if (ev.key === "Enter") { ev.preventDefault(); if (urlInput.value) { action(urlInput.value); closeActiveDropdown(instanceRef); } }
+            });
+            row.appendChild(urlInput);
+            row.appendChild(applyBtn);
+            panel.appendChild(row);
+            requestAnimationFrame(() => urlInput.focus());
+        }
+
+        function buildTableGrid() {
+            panel.innerHTML = "";
+            const GRID_ROWS = 6, GRID_COLS = 6;
+            const gridLabel = document.createElement("div");
+            gridLabel.className = "tiptap-grid-label";
+            gridLabel.textContent = "Select table size";
+            const grid = document.createElement("div");
+            grid.className = "tiptap-table-grid";
+            grid.style.gridTemplateColumns = `repeat(${GRID_COLS}, 1fr)`;
+            for (let r = 1; r <= GRID_ROWS; r++) {
+                for (let c = 1; c <= GRID_COLS; c++) {
+                    const cell = document.createElement("div");
+                    cell.className = "tiptap-grid-cell";
+                    cell.dataset.row = r;
+                    cell.dataset.col = c;
+                    cell.addEventListener("mouseenter", () => {
+                        gridLabel.textContent = `${r} × ${c}`;
+                        grid.querySelectorAll(".tiptap-grid-cell").forEach(gc => {
+                            const gr = parseInt(gc.dataset.row), gcol = parseInt(gc.dataset.col);
+                            gc.classList.toggle("is-active", gr <= r && gcol <= c);
+                        });
+                    });
+                    cell.addEventListener("mousedown", (ev) => {
+                        ev.preventDefault();
+                        editor.chain().focus().insertTable({ rows: r, cols: c, withHeaderRow: true }).run();
+                        closeActiveDropdown(instanceRef);
+                    });
+                    grid.appendChild(cell);
+                }
+            }
+            panel.appendChild(gridLabel);
+            panel.appendChild(grid);
+        }
+
+        buildInsertList();
+
+    // ── Alignment picker ──
+    } else if (type === "alignPicker") {
+        const list = document.createElement("div");
+        list.className = "tiptap-dropdown-list";
+
+        const alignItems = [
+            { icon: SVG_ALIGN_LEFT, label: "Left", align: "left" },
+            { icon: SVG_ALIGN_CENTER, label: "Center", align: "center" },
+            { icon: SVG_ALIGN_RIGHT, label: "Right", align: "right" },
+            { icon: SVG_ALIGN_JUSTIFY, label: "Justify", align: "justify" },
+        ];
+
+        alignItems.forEach(item => {
+            const row = document.createElement("button");
+            row.className = "tiptap-dropdown-list-item tiptap-dropdown-icon-item";
+            row.innerHTML = item.icon + `<span>${item.label}</span>`;
+            if (editor.isActive({ textAlign: item.align })) row.classList.add("is-active");
+            row.addEventListener("mousedown", (e) => {
+                e.preventDefault();
+                editor.chain().focus().setTextAlign(item.align).run();
+                closeActiveDropdown(instanceRef);
+            });
+            list.appendChild(row);
+        });
+
+        panel.appendChild(list);
     }
 
     return panel;
@@ -1986,8 +2166,6 @@ function buildToolbar(properties, ext, randomId, instanceRef) {
                     toggleDropdown(btn, btnDef, editor, instanceRef, toolbar);
                 } else if (btnDef.cmd === "addComment") {
                     instanceRef.triggerEvent("toolbar_add_comment");
-                } else if (btnDef.cmd === "removeComment") {
-                    instanceRef.triggerEvent("toolbar_remove_comment");
                 } else if (btnDef.action) {
                     btnDef.action(editor);
                 }
@@ -2039,7 +2217,6 @@ function updateToolbarStates(editor, buttonMap, instanceRef) {
         for (let i = 1; i <= 6; i++) {
             if (editor.isActive("heading", { level: i })) { label = "H" + i; break; }
         }
-        // Show a small label indicator next to the icon
         let indicator = headingBtn.querySelector(".tiptap-heading-indicator");
         if (!indicator) {
             indicator = document.createElement("span");
@@ -2047,6 +2224,37 @@ function updateToolbarStates(editor, buttonMap, instanceRef) {
             headingBtn.appendChild(indicator);
         }
         indicator.textContent = label;
+    }
+
+    // Update list dropdown icon to reflect active list type
+    if (buttonMap.listDropdown) {
+        const listBtn = buttonMap.listDropdown.el;
+        const svg = listBtn.querySelector("svg");
+        if (svg) {
+            let newIcon = SVG_LIST;
+            if (editor.isActive("orderedList")) newIcon = SVG_LISTORDERED;
+            else if (editor.isActive("taskList")) newIcon = SVG_TASKLIST;
+            const tmp = document.createElement("div");
+            tmp.innerHTML = newIcon;
+            const newSvg = tmp.firstChild;
+            svg.replaceWith(newSvg);
+        }
+    }
+
+    // Update align dropdown icon to reflect active alignment
+    if (buttonMap.alignDropdown) {
+        const alignBtn = buttonMap.alignDropdown.el;
+        const svg = alignBtn.querySelector("svg");
+        if (svg) {
+            let newIcon = SVG_ALIGN_LEFT;
+            if (editor.isActive({ textAlign: "center" })) newIcon = SVG_ALIGN_CENTER;
+            else if (editor.isActive({ textAlign: "right" })) newIcon = SVG_ALIGN_RIGHT;
+            else if (editor.isActive({ textAlign: "justify" })) newIcon = SVG_ALIGN_JUSTIFY;
+            const tmp = document.createElement("div");
+            tmp.innerHTML = newIcon;
+            const newSvg = tmp.firstChild;
+            svg.replaceWith(newSvg);
+        }
     }
 }
 
@@ -2071,8 +2279,9 @@ instance.data.setupEditor = function (properties, context) {
     const randomId = (Math.random() + 1).toString(36).substring(3);
     instance.data.randomId = randomId;
 
-    // Flex column: toolbar at top (flex-shrink:0), editor fills remainder and scrolls
-    instance.canvas.css({ display: "flex", "flex-direction": "column", overflow: "hidden" });
+    // Flex column: toolbar at top (flex-shrink:0), editor fills remainder and scrolls.
+    // Zero out canvas padding — toolbar and content each control their own padding via properties.
+    instance.canvas.css({ display: "flex", "flex-direction": "column", overflow: "hidden", padding: "0" });
 
     // pull libraries from window.tiptap
     const {
@@ -2886,19 +3095,6 @@ instance.data.setupEditor = function (properties, context) {
     instance.data.toolbarEl = toolbar;
     instance.data.toolbarButtonMap = buttonMap;
     if (!properties.toolbar_show) toolbar.style.display = "none";
-    // Negate canvas padding so toolbar spans edge-to-edge
-    const canvasEl = instance.canvas[0] || instance.canvas;
-    const cs = window.getComputedStyle(canvasEl);
-    const pTop = parseFloat(cs.paddingTop) || 0;
-    const pRight = parseFloat(cs.paddingRight) || 0;
-    const pBottom = parseFloat(cs.paddingBottom) || 0;
-    const pLeft = parseFloat(cs.paddingLeft) || 0;
-    if (pTop || pRight || pLeft) {
-        toolbar.style.margin = `-${pTop}px -${pRight}px 0 -${pLeft}px`;
-        toolbar.style.paddingLeft = `calc(8px + ${pLeft}px)`;
-        toolbar.style.paddingRight = `calc(8px + ${pRight}px)`;
-        toolbar.style.paddingTop = `calc(6px + ${pTop}px)`;
-    }
 
     instance.canvas.append(toolbar);
 

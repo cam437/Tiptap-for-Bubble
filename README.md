@@ -6,18 +6,20 @@ Install the plugin · Live demo
 Why use this plugin?
 Bubble's built-in rich text editor is limited. This plugin gives you:
 
+Built-in formatting toolbar — Full suite of formatting buttons that auto-hide when their extension is disabled. Includes headings dropdown, color pickers, font/size selectors, table grid inserter, and more. Styled with the Flourish dark theme. No workflow wiring needed
 Full formatting — Bold, italic, underline, strikethrough, highlight, text color, font family, font size, subscript, superscript
 Structure — Headings (H1–H6), blockquotes, code blocks, horizontal rules, collapsible details/accordion sections
 Lists — Bullet, numbered, and task/checklist lists with indent/outdent
 Tables — Insert, resize, merge/split cells, toggle header rows and columns
 Media — Images (inline or block) and YouTube embeds
 Links — With custom styling and configurable protocols
-Menus — Top toolbar, bubble menu (on text selection), and floating menu
+Inline comments — Tag text selections with comment IDs, toolbar buttons for add/remove with events for Bubble workflow integration
+Menus — Built-in toolbar, bubble menu (on text selection), and floating menu
 Real-time collaboration — Via Tiptap Cloud, custom Hocuspocus server, or Liveblocks, with cursor labels, connection status, and JWT auth
 Output formats — HTML, plain text, and JSON — all exposed as Bubble states
 55+ workflow actions — Control the editor programmatically from Bubble workflows
 Keyboard & Markdown shortcuts — Standard editor shortcuts plus Markdown-style triggers
-Fully customizable — CSS overrides for every element, per-extension toggles, debug mode
+Fully customizable — CSS overrides for every element (including the toolbar), per-extension toggles, debug mode
 Fork & develop locally
 Want to customize the plugin, add extensions, or contribute? Here's how to get your own copy running.
 
@@ -81,10 +83,11 @@ src/
 │   └── convert-webhook-payload.../    # Hocuspocus webhook → HTML
 ├── elements/
 │   └── tiptap-AAC/                    # Main editor element
-│       ├── actions/                   # 55 element actions (bold, italic, tables, etc.)
-│       ├── initialize.js              # Editor setup and configuration
+│       ├── actions/                   # 55+ element actions (bold, italic, tables, etc.)
+│       ├── initialize.js              # Editor setup, toolbar, and configuration
 │       ├── update.js                  # Property change handling
 │       ├── preview.js                 # Bubble editor preview
+│       ├── fields.txt                 # Element property reference
 │       └── reset.js                   # Teardown and cleanup
 ├── plugin.json                        # Plugin metadata and field definitions
 └── shared.html                        # Shared HTML resources
@@ -92,6 +95,25 @@ lib/
 ├── index.js                           # Library imports → window.tiptap namespace
 ├── package.json                       # npm dependencies (Tiptap, Hocuspocus, etc.)
 └── dist.js                            # Bundled output (uploaded to Bubble CDN)
+Native formatting toolbar
+The editor includes a built-in toolbar pinned above the editor content. It is enabled by default via the **Show toolbar** property.
+
+**Buttons auto-hide** based on which extensions are enabled. If you disable Bold (`ext_bold`), the bold button disappears. Groups with zero visible buttons hide entirely along with their divider.
+
+**Toolbar groups** (in order): Text formatting, Color, Font, Headings, Lists, Blocks, Insert, Links, Alignment, Comments, History, Other.
+
+**Dropdowns**: Color picker (swatches + custom), font family list, font size list, heading level selector (respects the `headings` property), URL inputs for links/images/YouTube, and a table grid selector.
+
+**Comment buttons** fire events instead of executing actions directly:
+- **Add comment** fires `toolbar_add_comment` (greyed out when no text is selected). Your Bubble workflow generates a comment ID and calls the `add_comment` action.
+- **Remove comment** fires `toolbar_remove_comment` (greyed out when cursor is not inside a comment). Your Bubble workflow handles cleanup.
+
+**CSS override**: Use the **Toolbar CSS override** (`toolbar_adv`) property to inject custom styles.
+
+**Keyboard shortcuts** continue to work via Tiptap extension defaults (Cmd+B, Cmd+I, etc.). Toolbar buttons mirror but do not replace them.
+
+**Collaboration**: Undo/redo buttons auto-hide when collaboration is active, since history is disabled in collab mode.
+
 Library management
 All Tiptap libraries are centralized in lib/index.js, bundled into a single file, and exposed on window.tiptap for use in initialize.js and update.js.
 
