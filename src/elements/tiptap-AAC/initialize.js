@@ -1448,6 +1448,45 @@ function publishActiveStates(editor) {
 }
 instance.data.publishActiveStates = publishActiveStates;
 
+// ── Comment-mark tracking ────────────────────────────────────
+// Collects all unique commentIds present in the document.
+function collectCommentIds(doc) {
+    const ids = new Set();
+    doc.descendants((node) => {
+        if (node.marks) {
+            node.marks.forEach((mark) => {
+                if (mark.type.name === "comment" && mark.attrs.commentId) {
+                    ids.add(mark.attrs.commentId);
+                }
+            });
+        }
+    });
+    return ids;
+}
+
+// Diffs the current comment set against the previous snapshot.
+// IDs that disappeared → comment_removed; IDs that reappeared → comment_restored.
+function detectCommentChanges(editor) {
+    const current = collectCommentIds(editor.state.doc);
+    const prev = instance.data._prevCommentIds;
+    if (prev) {
+        prev.forEach((id) => {
+            if (!current.has(id)) {
+                instance.publishState("removed_comment_id", id);
+                instance.triggerEvent("comment_removed");
+            }
+        });
+        current.forEach((id) => {
+            if (!prev.has(id)) {
+                instance.publishState("restored_comment_id", id);
+                instance.triggerEvent("comment_restored");
+            }
+        });
+    }
+    instance.data._prevCommentIds = current;
+}
+instance.data.detectRemovedComments = detectCommentChanges;
+
 function findParentBlock(state, pos) {
     const $pos = state.doc.resolve(pos);
     for (let depth = $pos.depth; depth > 0; depth--) {
@@ -2910,6 +2949,11 @@ instance.data.setupEditor = function (properties, context) {
                 instance.publishState("invisible_characters_visible", properties.invisiblecharacters_visible !== false);
             }
 
+            // Snapshot initial comment IDs so we can detect removals
+            if (properties.ext_comment) {
+                instance.data._prevCommentIds = collectCommentIds(editor.state.doc);
+            }
+
             // If collaboration is active, try to set initial content
             if (properties.collab_active && instance.data.maybeSetCollabInitialContent) {
                 // Try immediately (in case provider already synced)
@@ -2956,6 +3000,11 @@ instance.data.setupEditor = function (properties, context) {
             instance.publishState("can_redo", editor.can().redo());
             instance.publishState("characterCount", editor.storage.characterCount.characters());
             instance.publishState("wordCount", editor.storage.characterCount.words());
+
+            // Detect comment marks that were fully removed from the document
+            if (properties.ext_comment) {
+                instance.data.detectRemovedComments(editor);
+            }
 
             if (!instance.data.isProgrammaticUpdate) {
                 if (!properties.collab_active) {

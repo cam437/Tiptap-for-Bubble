@@ -508,6 +508,16 @@
       "caption": "Comment clicked",
       "name": "comment_clicked"
     },
+    "comment_removed": {
+      "caption": "Comment removed",
+      "doc": "Fires when a comment mark is completely removed from the document, whether by text deletion, content overwrite, or programmatic removal. Read the 'Removed comment ID' state to get the ID.",
+      "name": "comment_removed"
+    },
+    "comment_restored": {
+      "caption": "Comment restored",
+      "doc": "Fires when a comment mark reappears in the document after being absent — typically via undo, redo, or content replacement. Read the 'Restored comment ID' state to get the ID.",
+      "name": "comment_restored"
+    },
     "toolbar_add_comment": {
       "caption": "Toolbar: Add comment",
       "name": "toolbar_add_comment"
@@ -2734,6 +2744,24 @@
         "fn": "function(properties, context) {}"
       },
       "name": "active_comment_id",
+      "value": "text"
+    },
+    "removed_comment_id": {
+      "caption": "Removed comment ID",
+      "doc": "The comment ID of a comment mark that was fully removed from the document (e.g. by text deletion or content overwrite). Read this state inside the 'Comment removed' event handler to update your database.",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "removed_comment_id",
+      "value": "text"
+    },
+    "restored_comment_id": {
+      "caption": "Restored comment ID",
+      "doc": "The comment ID of a comment mark that reappeared in the document (e.g. via undo). Read this state inside the 'Comment restored' event handler to re-attach the comment in your database.",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "restored_comment_id",
       "value": "text"
     },
     "ACM": {
