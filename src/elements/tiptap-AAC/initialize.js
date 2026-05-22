@@ -1502,7 +1502,7 @@ instance.data.findParentBlock = findParentBlock;
 function getSelection(editor) {
     const { state, view } = editor;
     const { from, to } = view.state.selection;
-    const text = state.doc.textBetween(from, to, "");
+    const text = state.doc.textBetween(from, to, "\n");
     instance.publishState("selected_text", text);
     instance.publishState("from", from);
     instance.publishState("to", to);

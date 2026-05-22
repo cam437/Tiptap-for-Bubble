@@ -6,20 +6,20 @@ Install the plugin · Live demo
 Why use this plugin?
 Bubble's built-in rich text editor is limited. This plugin gives you:
 
-Built-in formatting toolbar — Full suite of formatting buttons that auto-hide when their extension is disabled. Includes headings dropdown, color pickers, font/size selectors, table grid inserter, and more. Styled with the Flourish dark theme. No workflow wiring needed
-Full formatting — Bold, italic, underline, strikethrough, highlight, text color, font family, font size, subscript, superscript
-Structure — Headings (H1–H6), blockquotes, code blocks, horizontal rules, collapsible details/accordion sections
-Lists — Bullet, numbered, and task/checklist lists with indent/outdent
-Tables — Insert, resize, merge/split cells, toggle header rows and columns
-Media — Images (inline or block) and YouTube embeds
+Built-in formatting toolbar — Single-row toolbar with dropdown grouping for lists, insert blocks, and alignment. Styled with the Flourish dark theme. No workflow wiring needed
+Full formatting — Bold, italic, underline, strikethrough, highlight
+Structure — Headings (H1–H6), blockquotes, code blocks, horizontal rules
+Lists — Bullet, numbered, and task/checklist lists with indent/outdent (collapsed into a single dropdown)
+Tables — Insert via grid selector, resize, merge/split cells, toggle header rows and columns
+Media — Images and YouTube embeds (via the Insert dropdown)
 Links — With custom styling and configurable protocols
-Inline comments — Tag text selections with comment IDs, toolbar buttons for add/remove with events for Bubble workflow integration
+Inline comments — Tag text selections with comment IDs, automatic detection when comment marks are deleted or restored (undo), with events for Bubble workflow integration
 Menus — Built-in toolbar, bubble menu (on text selection), and floating menu
 Real-time collaboration — Via Tiptap Cloud, custom Hocuspocus server, or Liveblocks, with cursor labels, connection status, and JWT auth
 Output formats — HTML, plain text, and JSON — all exposed as Bubble states
 55+ workflow actions — Control the editor programmatically from Bubble workflows
 Keyboard & Markdown shortcuts — Standard editor shortcuts plus Markdown-style triggers
-Fully customizable — CSS overrides for every element (including the toolbar), per-extension toggles, debug mode
+Fully customizable — Independent toolbar and content padding/background controls, CSS overrides for every element, per-extension toggles, debug mode
 Fork & develop locally
 Want to customize the plugin, add extensions, or contribute? Here's how to get your own copy running.
 
@@ -100,19 +100,65 @@ The editor includes a built-in toolbar pinned above the editor content. It is en
 
 **Buttons auto-hide** based on which extensions are enabled. If you disable Bold (`ext_bold`), the bold button disappears. Groups with zero visible buttons hide entirely along with their divider.
 
-**Toolbar groups** (in order): Text formatting, Color, Font, Headings, Lists, Blocks, Insert, Links, Alignment, Comments, History, Other.
+**Toolbar layout** (left to right):
 
-**Dropdowns**: Color picker (swatches + custom), font family list, font size list, heading level selector (respects the `headings` property), URL inputs for links/images/YouTube, and a table grid selector.
+```
+B  I  U  S  Highlight  |  [H▾]  |  [List▾]  |  [Insert▾]  |  Link  |  [Align▾]  |  Comment  |  Undo  Redo
+```
 
-**Comment buttons** fire events instead of executing actions directly:
-- **Add comment** fires `toolbar_add_comment` (greyed out when no text is selected). Your Bubble workflow generates a comment ID and calls the `add_comment` action.
-- **Remove comment** fires `toolbar_remove_comment` (greyed out when cursor is not inside a comment). Your Bubble workflow handles cleanup.
+**Groups:**
 
-**CSS override**: Use the **Toolbar CSS override** (`toolbar_adv`) property to inject custom styles.
+| Group | Behaviour |
+|---|---|
+| **Text formatting** | Bold, Italic, Underline, Strikethrough, Highlight — individual toggle buttons, always visible |
+| **Headings** | Single dropdown (`H▾`). Shows the active heading level in the trigger. Lists Paragraph + H1–H6 based on the `headings` property |
+| **Lists** | Single dropdown. Trigger icon reflects the active list type (bullet, numbered, or checklist). Contains: Bullet list, Numbered list, Checklist, Indent, Outdent. Indent/Outdent are disabled when not in a list context |
+| **Insert** | Single dropdown with a `+` trigger icon. Contains: Blockquote, Code block, Divider, Image (URL input), Video (URL input), Table (grid selector). Items with secondary input open an inline sub-panel |
+| **Link** | Single button. Opens a URL input dropdown. Unlink is handled contextually inside the link popover, not in the toolbar |
+| **Alignment** | Single dropdown. Trigger icon reflects the active alignment. Contains: Left, Center, Right, Justify |
+| **Comment** | Single button. Fires the `toolbar_add_comment` event (greyed out when no text is selected). Comment removal is handled contextually, not via the toolbar |
+| **Undo / Redo** | Pair on the far right. Auto-hide when collaboration is active |
+
+All dropdowns match the same visual treatment: chevron affordance, active-state highlighting, and hover/focus states.
+
+**Comment workflow integration:**
+
+The **Add comment** toolbar button fires `toolbar_add_comment`. Your Bubble workflow generates a comment ID and calls the `add_comment` action.
+
+When a comment mark is fully deleted from the document — whether by text deletion, content overwrite, or programmatic removal — the plugin publishes the `removed_comment_id` state and fires the `comment_removed` event. If the comment reappears (e.g. via undo), the plugin publishes `restored_comment_id` and fires `comment_restored`. Use these events to keep your comment database in sync.
+
+| Event | State to read | When it fires |
+|---|---|---|
+| `comment_clicked` | `active_comment_id` | Cursor enters a commented region |
+| `toolbar_add_comment` | — | User clicks the Comment toolbar button |
+| `comment_removed` | `removed_comment_id` | A comment mark is fully removed from the document |
+| `comment_restored` | `restored_comment_id` | A previously-removed comment mark reappears (e.g. undo) |
+
+Toolbar and content styling
+The toolbar and content area are independent siblings inside the editor root. Each has its own padding and background — changing one has zero effect on the other.
+
+**Toolbar properties:**
+
+| Property | Default | Description |
+|---|---|---|
+| `toolbar_bg` | `#0D0A0F` (dark surface) | Toolbar background colour |
+| `toolbar_padding_top` | `6px` | Top padding inside the toolbar |
+| `toolbar_padding_right` | `8px` | Right padding inside the toolbar |
+| `toolbar_padding_bottom` | `6px` | Bottom padding inside the toolbar |
+| `toolbar_padding_left` | `8px` | Left padding inside the toolbar |
+
+**Content properties:**
+
+| Property | Default | Description |
+|---|---|---|
+| `content_padding_top` | `0px` | Top padding inside the content area |
+| `content_padding_right` | `0px` | Right padding inside the content area |
+| `content_padding_bottom` | `0px` | Bottom padding inside the content area |
+| `content_padding_left` | `0px` | Left padding inside the content area |
+
+**CSS override**: Use the **Toolbar CSS override** (`toolbar_adv`) property to inject custom styles beyond these properties.
 
 **Keyboard shortcuts** continue to work via Tiptap extension defaults (Cmd+B, Cmd+I, etc.). Toolbar buttons mirror but do not replace them.
-
-**Collaboration**: Undo/redo buttons auto-hide when collaboration is active, since history is disabled in collab mode.
 
 Library management
 All Tiptap libraries are centralized in lib/index.js, bundled into a single file, and exposed on window.tiptap for use in initialize.js and update.js.
