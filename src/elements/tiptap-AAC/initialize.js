@@ -6,8 +6,9 @@ try {
         }
     };
 
-    // add display: flex to main element
-    instance.canvas.css("display", "flex");
+    // Set full flex layout on canvas immediately so the container is correct
+    // before setupEditor runs. Re-applied on every update.js cycle too.
+    instance.canvas.css({ display: "flex", "flex-direction": "column", overflow: "hidden", padding: "0" });
 
     // this boolean turns true after the setup has been done, but the editor might not yet be initialized.
     // if the setup runs twice, it can add double initial data, etc.
@@ -32,6 +33,7 @@ try {
     // Reusable function to populate the editor stylesheet.
     // Called from update.js on every property change and from the collab retry path.
     instance.data.applyStylesheet = function (properties) {
+        if (!instance.data.randomId) return;
         instance.data.stylesheet.innerHTML = `
 #tiptapEditor-${instance.data.randomId} {
 
@@ -448,6 +450,9 @@ try {
 }
 
 #tiptapEditor-${instance.data.randomId} {
+    flex: 1 1 0;
+    overflow-y: auto;
+    min-height: 0;
     padding: ${properties.content_padding_top || "0px"} ${properties.content_padding_right || "0px"} ${properties.content_padding_bottom || "0px"} ${properties.content_padding_left || "0px"};
 }
 

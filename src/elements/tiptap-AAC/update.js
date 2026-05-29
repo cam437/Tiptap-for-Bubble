@@ -162,6 +162,8 @@ if (!!instance.data.editor_is_ready && !!properties.collab_active) {
     });
 }
 
+// Re-apply canvas layout on every update — Bubble may reset inline styles between cycles
+instance.canvas.css({ display: "flex", "flex-direction": "column", overflow: "hidden", padding: "0" });
 instance.data.applyStylesheet(properties);
 
 // ── Toolbar property change handlers ──
