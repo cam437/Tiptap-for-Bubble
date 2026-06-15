@@ -162,6 +162,20 @@ if (!!instance.data.editor_is_ready && !!properties.collab_active) {
     });
 }
 
+// ── Mention candidate feed ────────────────────────────────
+// When Bubble updates `candidates` (in response to a mention_query event),
+// push the new list into the live suggestion popup.
+if (
+    instance.data.editor_is_ready &&
+    properties.ext_mention &&
+    properties.candidates !== instance.data._prevMentionCandidates
+) {
+    instance.data._prevMentionCandidates = properties.candidates;
+    if (instance.data._updateMentionCandidates) {
+        instance.data._updateMentionCandidates(properties.candidates || "[]");
+    }
+}
+
 // Re-apply canvas layout on every update — Bubble may reset inline styles between cycles
 instance.canvas.css({ display: "flex", "flex-direction": "column", overflow: "hidden", padding: "0" });
 instance.data.applyStylesheet(properties);

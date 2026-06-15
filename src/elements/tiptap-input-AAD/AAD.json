@@ -1,0 +1,221 @@
+{
+  "display": "Tiptap Input",
+  "category": "input forms",
+  "icon": "ion-ios-chatboxes-outline",
+  "default_dim": { "height": 44, "width": 400 },
+  "can_fit_height": true,
+  "can_fit_width": true,
+  "add_hover_pressed": false,
+  "add_is_visible": true,
+  "add_large_file_upload_properties": false,
+  "has_reset_fn": true,
+  "property_applications": {
+    "Background": true,
+    "Border": true,
+    "BoxShadow": true,
+    "Font": true,
+    "MinWidth": true,
+    "Padding": true,
+    "resizable": true
+  },
+  "events": {
+    "mention_query": {
+      "caption": "Mention query",
+      "doc": "Fires (debounced ~150ms) when the user types after the trigger character. Read current_query, then update the Candidates field with matching results.",
+      "name": "mention_query"
+    },
+    "mention_inserted": {
+      "caption": "Mention inserted",
+      "doc": "Fires when the user selects a mention from the popup. Read mention_id, mention_label, and mention_type.",
+      "name": "mention_inserted"
+    },
+    "submit": {
+      "caption": "Submit",
+      "doc": "Fires when the user presses Enter (without Shift). Read plain_text and current_mentions to get the message content.",
+      "name": "submit"
+    },
+    "isFocused": {
+      "caption": "Is focused",
+      "name": "isFocused"
+    },
+    "isntFocused": {
+      "caption": "Isn't focused",
+      "name": "isntFocused"
+    },
+    "is_ready": {
+      "caption": "Editor is ready",
+      "name": "is_ready"
+    }
+  },
+  "fields": {
+    "inp_ext_mention": {
+      "caption": "Mention",
+      "default_val": true,
+      "doc": "Enable @mention support. When enabled, typing the trigger character opens a suggestion popup.",
+      "editor": "DynamicValue",
+      "name": "ext_mention",
+      "optional": true,
+      "rank": 1,
+      "value": "boolean"
+    },
+    "inp_trigger_char": {
+      "caption": "Trigger character",
+      "default_val": "@",
+      "doc": "The character that triggers the mention popup. Default is @.",
+      "editor": "DynamicValue",
+      "name": "trigger_char",
+      "optional": true,
+      "rank": 2,
+      "value": "text"
+    },
+    "inp_candidates": {
+      "caption": "Candidates (JSON)",
+      "doc": "Reactive JSON array of candidates: [{\"id\":\"...\",\"label\":\"...\",\"type\":\"...\",\"sublabel\":\"...\"}]. Update in response to the Mention query event. type and sublabel are optional.",
+      "editor": "DynamicValue",
+      "name": "candidates",
+      "optional": true,
+      "rank": 3,
+      "value": "text"
+    },
+    "inp_initial_content": {
+      "caption": "Initial content",
+      "doc": "HTML content to load into the editor on initialisation. Stored mention nodes round-trip correctly when read-only mode is on.",
+      "editor": "DynamicValue",
+      "name": "initialContent",
+      "optional": true,
+      "rank": 4,
+      "value": "text"
+    },
+    "inp_placeholder": {
+      "caption": "Placeholder",
+      "default_val": "Type a message…",
+      "doc": "Placeholder text shown when the editor is empty.",
+      "editor": "DynamicValue",
+      "name": "placeholder",
+      "optional": true,
+      "rank": 5,
+      "value": "text"
+    },
+    "inp_is_editable": {
+      "caption": "Editable",
+      "default_val": true,
+      "doc": "When false the editor is read-only — use this to render stored messages containing mentions.",
+      "editor": "Checkbox",
+      "in_style": true,
+      "name": "isEditable",
+      "optional": false,
+      "rank": 6,
+      "value": "boolean"
+    },
+    "inp_mention_border_color": {
+      "caption": "Mention border color",
+      "default_val": "rgba(99,102,241,1)",
+      "doc": "Border color of rendered mention chips.",
+      "editor": "Color",
+      "in_style": true,
+      "name": "mention_border_color",
+      "optional": true,
+      "rank": 7
+    },
+    "inp_mention_bg_color": {
+      "caption": "Mention background color",
+      "default_val": "rgba(238,242,255,1)",
+      "doc": "Background color of rendered mention chips.",
+      "editor": "Color",
+      "in_style": true,
+      "name": "mention_background_color",
+      "optional": true,
+      "rank": 8
+    }
+  },
+  "states": {
+    "inp_current_query": {
+      "caption": "Current query",
+      "doc": "Text typed after the trigger character. Read this in Mention query handler to filter candidates.",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "current_query",
+      "value": "text"
+    },
+    "inp_current_mentions": {
+      "caption": "Current mentions (JSON)",
+      "doc": "JSON array of mention nodes in the document, deduped by id, document order. Format: [{\"id\":\"...\",\"label\":\"...\",\"type\":\"...\"}].",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "current_mentions",
+      "value": "text"
+    },
+    "inp_plain_text": {
+      "caption": "Plain text",
+      "doc": "Plain text content of the editor, with mentions rendered as @label.",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "plain_text",
+      "value": "text"
+    },
+    "inp_serialized_value": {
+      "caption": "Serialized value (HTML)",
+      "doc": "Full HTML of the editor content. Store this and feed it back as Initial content to restore mentions.",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "serialized_value",
+      "value": "text"
+    },
+    "inp_is_focused": {
+      "caption": "Is focused",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "isFocused",
+      "value": "boolean"
+    },
+    "inp_mention_id": {
+      "caption": "Mention: inserted ID",
+      "doc": "ID of the most recently inserted mention.",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "mention_id",
+      "value": "text"
+    },
+    "inp_mention_label": {
+      "caption": "Mention: inserted label",
+      "doc": "Label of the most recently inserted mention.",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "mention_label",
+      "value": "text"
+    },
+    "inp_mention_type": {
+      "caption": "Mention: inserted type",
+      "doc": "Type of the most recently inserted mention.",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "mention_type",
+      "value": "text"
+    },
+    "inp_is_empty": {
+      "caption": "Is empty",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "is_empty",
+      "value": "boolean"
+    },
+    "inp_is_ready": {
+      "caption": "Is ready",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "is_ready",
+      "value": "boolean"
+    }
+  },
+  "support_autobinding": false
+}

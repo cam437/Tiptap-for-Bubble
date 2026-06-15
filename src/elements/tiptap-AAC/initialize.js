@@ -1156,197 +1156,19 @@ ${properties.toolbar_adv || ""}
     console.error("[Tiptap] error in initialize:", error);
 }
 
-// MentionList
-instance.data.MentionList = class MentionList {
-    constructor(stuff) {
-        const { props, editor } = stuff;
-        this.items = props.items;
-        this.command = props.command;
-        this.selectedIndex = 0;
-        this.randomId = props.randomId;
-        this.editor = editor;
-        this.initElement();
-        this.updateItems(this);
-    }
+// ── Mention support ──────────────────────────────────────────
+// Uses shared mention core from window.tiptapMentionCore (lib/index.js)
 
-    initElement() {
-        this.element = document.createElement("div");
-        this.element.className = "items_" + this.randomId;
+const {
+    initMentionState,
+    makeCandidateUpdater,
+    buildSuggestionConfig,
+    buildMentionExtension: _buildMentionExt,
+    collectCurrentMentions,
+} = window.tiptapMentionCore;
 
-        this.element.addEventListener("click", this.handleClick.bind(this));
-        this.element.addEventListener("keydown", this.handleKeyDown.bind(this));
-    }
-
-    handleClick(event) {
-        const target = event.target.closest(".item");
-        const index = Array.from(this.element.children).indexOf(target);
-        if (index !== -1) {
-            this.selectItem(index);
-            this.updateSelection(index);
-        }
-    }
-
-    updateItems(props) {
-        this.items = props.items;
-        this.selectedIndex = 0;
-        this.redraw();
-    }
-
-    updateProps(props) {
-        this.range = props.range;
-        this.editor = props.editor;
-    }
-
-    redraw() {
-        this.element.innerHTML = "";
-        const fragment = document.createDocumentFragment();
-
-        this.items.forEach((item, index) => {
-            const button = document.createElement("button");
-            button.textContent = item.label;
-            button.className = "item" + (index === this.selectedIndex ? " is-selected" : "");
-            fragment.appendChild(button);
-        });
-
-        this.element.appendChild(fragment);
-    }
-
-    selectItem(index) {
-        const item = this.items[index];
-        const editor = this.editor;
-        const range = this.range;
-
-        if (item && range) {
-            editor.commands.insertContentAt(range, {
-                type: "mention",
-                attrs: {
-                    label: item.label,
-                    id: item.id,
-                },
-            });
-            editor.commands.insertContent(" ");
-            editor.commands.setTextSelection(range.from + 1);
-        } else {
-            this.command(item);
-        }
-    }
-
-    updateSelection(index) {
-        const previouslySelected = this.element.querySelector(".is-selected");
-        if (previouslySelected) previouslySelected.classList.remove("is-selected");
-
-        const newSelected = this.element.children[index];
-        if (newSelected) newSelected.classList.add("is-selected");
-
-        this.selectedIndex = index;
-    }
-
-    handleKeyDown(event) {
-        switch (event.key) {
-            case "ArrowUp":
-                this.moveSelection(-1);
-                event.preventDefault();
-                break;
-            case "ArrowDown":
-                this.moveSelection(1);
-                event.preventDefault();
-                break;
-            case "Enter":
-                this.selectItem(this.selectedIndex);
-                event.preventDefault();
-                break;
-            case "Tab":
-                this.selectItem(this.selectedIndex);
-                event.preventDefault();
-                break;
-        }
-    }
-
-    moveSelection(direction) {
-        const itemLength = this.items.length;
-        const newIndex = (this.selectedIndex + direction + itemLength) % itemLength;
-        this.updateSelection(newIndex);
-        this.redraw();
-    }
-};
-
-function configureSuggestion(instance, properties) {
-    return {
-        char: properties.mention_triggerChar || "@",
-        items: ({ query }) => {
-            if (typeof query !== "string") {
-                // console.log("thing passed to Mention is not a string, returning. Typeof query: ", typeof query);
-                return [];
-            }
-            const length = properties.mention_list.length();
-            const source_list = properties.mention_list.get(0, length);
-            const mention_list = source_list.map((item) => {
-                return {
-                    label: item.get(properties.mention_field_label),
-                    id: item.get(properties.mention_field_id),
-                };
-            });
-            // console.log("mention_list", mention_list);
-            const query_result = mention_list.filter((item) => item.label.toLowerCase().includes(query.toLowerCase()));
-
-            return query_result;
-        },
-
-        render: () => {
-            let popup, component;
-
-            return {
-                onStart: (props) => {
-                    props.randomId = instance.data.randomId;
-                    component = new instance.data.MentionList({
-                        props,
-                        editor: props.editor,
-                    });
-                    popup = window.tiptap.tippy("body", {
-                        getReferenceClientRect: props.clientRect,
-                        appendTo: () => document.body,
-                        content: component.element,
-                        showOnCreate: true,
-                        interactive: true,
-                        trigger: "manual",
-                        placement: "bottom-start",
-                    });
-                },
-
-                onUpdate: (props) => {
-                    if (!props.clientRect) {
-                        return;
-                    }
-
-                    component.updateProps(props);
-
-                    popup[0].setProps({
-                        getReferenceClientRect: props.clientRect,
-                    });
-
-                    const newItems = component.updateItems(props);
-                    popup[0].setContent(newItems);
-                },
-
-                onKeyDown: ({ event, editor }) => {
-                    if (event.key === "Enter") {
-                        event.preventDefault();
-                        component.selectItem(component.selectedIndex);
-                        return true;
-                    }
-
-                    return component.handleKeyDown(event);
-                },
-
-                onExit: () => {
-                    popup[0].destroy();
-                    component.element.remove();
-                },
-            };
-        },
-    };
-}
-instance.data.configureSuggestion = configureSuggestion;
+initMentionState(instance.data);
+instance.data._updateMentionCandidates = makeCandidateUpdater(instance.data);
 
 instance.data.rgbToHex = function (colorString) {
     instance.data.debug("rgbToHex", colorString);
@@ -2510,27 +2332,16 @@ instance.data.setupEditor = function (properties, context) {
     if (properties.ext_tasklist) extensions.push(TaskList, TaskItem.configure({ nested: true }));
 
     if (properties.ext_mention) {
-        if (!properties.mention_list) {
-            instance.data.debug("tried to use Mention extension, but mention_list is empty. Mention extension not loaded");
-        } else {
-            const suggestion_config = instance.data.configureSuggestion(instance, properties);
-            extensions.push(
-                Mention.configure({
-                    HTMLAttributes: {
-                        class: "mention",
-                    },
-                    renderHTML({ options, node }) {
-                        return [
-                            "a",
-                            mergeAttributes({ href: `${properties.mention_base_url}${node.attrs.id}` }, options.HTMLAttributes),
-                            `${options.suggestion.char}${node.attrs.label ?? node.attrs.id}`,
-                        ];
-                    },
-                    deleteTriggerWithBackspace: true,
-                    suggestion: suggestion_config,
-                }),
-            );
-        }
+        const triggerChar = properties.trigger_char || properties.mention_triggerChar || "@";
+        const suggestionConfig = buildSuggestionConfig({
+            instance,
+            instanceData: instance.data,
+            tippy: window.tiptap.tippy,
+            triggerChar,
+        });
+        extensions.push(
+            _buildMentionExt({ Mention, mergeAttributes, triggerChar, suggestionConfig })
+        );
     }
 
     if (properties.ext_highlight) extensions.push(Highlight.configure({ multicolor: properties.highlight_multicolor !== false }));
@@ -2959,6 +2770,12 @@ instance.data.setupEditor = function (properties, context) {
                 instance.data._prevCommentIds = collectCommentIds(editor.state.doc);
             }
 
+            // Publish initial mention states
+            if (properties.ext_mention) {
+                instance.publishState("current_mentions", "[]");
+                instance.publishState("current_query", "");
+            }
+
             // If collaboration is active, try to set initial content
             if (properties.collab_active && instance.data.maybeSetCollabInitialContent) {
                 // Try immediately (in case provider already synced)
@@ -3044,6 +2861,11 @@ instance.data.setupEditor = function (properties, context) {
             instance.publishState("characterCount", editor.storage.characterCount.characters());
             instance.publishState("wordCount", editor.storage.characterCount.words());
             if (instance.data.updateToolbarStates) instance.data.updateToolbarStates(editor);
+
+            // Recompute current_mentions on every transaction (insert, delete, undo, etc.)
+            if (properties.ext_mention) {
+                instance.publishState("current_mentions", collectCurrentMentions(editor.state.doc));
+            }
         },
         onSelectionUpdate({ editor }) {
             instance.data.getSelection(editor);

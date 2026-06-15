@@ -1,0 +1,8 @@
+Mention (inp_ext_mention)
+Trigger character (inp_trigger_char)
+Candidates (JSON) (inp_candidates)
+Initial content (inp_initial_content)
+Placeholder (inp_placeholder)
+Editable (inp_is_editable)
+Mention border color (inp_mention_border_color)
+Mention background color (inp_mention_bg_color)

@@ -525,6 +525,16 @@
     "toolbar_remove_comment": {
       "caption": "Toolbar: Remove comment",
       "name": "toolbar_remove_comment"
+    },
+    "mention_query": {
+      "caption": "Mention query",
+      "doc": "Fires (debounced ~150ms) when the user types after the trigger character. Read current_query to get the typed text, then update the Candidates field with matching results.",
+      "name": "mention_query"
+    },
+    "mention_inserted": {
+      "caption": "Mention inserted",
+      "doc": "Fires when the user selects a mention from the popup. Read mention_id, mention_label, and mention_type states for the selected item.",
+      "name": "mention_inserted"
     }
   },
   "fields": {
@@ -673,11 +683,20 @@
     "mention_triggerChar": {
       "caption": "Trigger character",
       "default_val": "@",
-      "doc": "The character that triggers the mention suggestion popup. Default is @. Change to # for hashtag-style mentions, etc.",
+      "doc": "The character that triggers the mention suggestion popup. Default is @.",
       "editor": "DynamicValue",
       "name": "mention_triggerChar",
       "optional": true,
       "rank": 178,
+      "value": "text"
+    },
+    "mention_candidates": {
+      "caption": "Candidates (JSON)",
+      "doc": "Reactive JSON array of mention candidates: [{\"id\":\"...\",\"label\":\"...\",\"type\":\"...\",\"sublabel\":\"...\"}]. Update this in response to the 'Mention query' event using the current_query state to filter results. The type and sublabel fields are optional.",
+      "editor": "DynamicValue",
+      "name": "candidates",
+      "optional": true,
+      "rank": 179,
       "value": "text"
     },
     "AFy": {
@@ -3036,6 +3055,51 @@
       },
       "name": "strike",
       "value": "boolean"
+    },
+    "mention_current_query": {
+      "caption": "Mention: current query",
+      "doc": "The text typed after the trigger character (e.g. what comes after @). Read this in your Mention query workflow to filter candidates.",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "current_query",
+      "value": "text"
+    },
+    "mention_current_mentions": {
+      "caption": "Mention: current mentions (JSON)",
+      "doc": "JSON array of all mention nodes currently in the document, deduped by id, in document order. Format: [{\"id\":\"...\",\"label\":\"...\",\"type\":\"...\"}]. Recomputed on every edit.",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "current_mentions",
+      "value": "text"
+    },
+    "mention_id": {
+      "caption": "Mention: inserted ID",
+      "doc": "The ID of the most recently inserted mention. Updated when the mention_inserted event fires.",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "mention_id",
+      "value": "text"
+    },
+    "mention_label": {
+      "caption": "Mention: inserted label",
+      "doc": "The display label of the most recently inserted mention.",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "mention_label",
+      "value": "text"
+    },
+    "mention_type": {
+      "caption": "Mention: inserted type",
+      "doc": "The type of the most recently inserted mention (e.g. 'person', 'claim', etc.).",
+      "initialization_code": {
+        "fn": "function(properties, context) {}"
+      },
+      "name": "mention_type",
+      "value": "text"
     }
   },
   "support_autobinding": true
